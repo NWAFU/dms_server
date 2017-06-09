@@ -1,7 +1,7 @@
-#ifndef SERVER_SOCKET_H
-#define SERVER_SOCKET_H
+#ifndef SOCKET_EXCEPTION_H
+#define SOCKET_EXCEPTION_H
 
-#include "server_exception.h"
+#include"server_exception.h"
 
 //2.套接字异常
 class SocketException:public ServerException
@@ -11,4 +11,4 @@ public:
     SocketException(const string& msg);
 };
 
-#endif // SERVER_SOCKET_H
+#endif // SOCKET_EXCEPTION_H
