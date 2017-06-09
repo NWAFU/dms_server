@@ -1,5 +1,5 @@
-#ifndef CLIENTEXCEPTION_H
-#define CLIENTEXCEPTION_H
+#ifndef SERVEREXCEPTION_H
+#define SERVEREXCEPTION_H
 
 #include <exception>
 #include <string>
