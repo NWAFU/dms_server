@@ -1,4 +1,10 @@
 #ifndef LOG_DAO_H
 #define LOG_DAO_H
 
+class LogDao
+{
+public:
+    virtual void insert(MatchedLogRec const& matched_log) = 0;
+};
+
 #endif // LOG_DAO_H
