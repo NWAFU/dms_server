@@ -2,15 +2,18 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
-SOURCES += main.cpp \
-    ../file_dao.cpp \
-    ../log_dao.cpp \
-    ../oracle_dao.cpp
-HEADERS += exception/server_exception.h \
-    ../Server.h \
-    ../ServerSocket.h \
-    ../StoreThread.h \
-    ../log_dao.h \
-    ../file_dao.h \
-    ../oracle_dao.h
-OTHER_FILES += 
+
+SOURCES += src/main.cpp \
+    src/file_dao.cpp \
+    src/log_dao.cpp \
+    src/oracle_dao.cpp
+    
+
+HEADERS += header/server_exception.h \
+    header/Server.h \
+    header/ServerSocket.h \
+    header/StoreThread.h \
+    header/log_dao.h \
+    header/file_dao.h \
+    header/oracle_dao.h
+
