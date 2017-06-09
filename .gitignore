@@ -40,5 +40,6 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
-
+# Temp Files
+*~
 # End of https://www.gitignore.io/api/qt
