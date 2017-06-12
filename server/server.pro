@@ -4,7 +4,6 @@ CONFIG -= app_bundle
 CONFIG -= qt
 SOURCES += src/main.cpp \
     src/file_dao.cpp \
-    src/log_dao.cpp \
     src/oracle_dao.cpp \
     src/server_socket.cpp \
     src/store_thread.cpp \
@@ -22,4 +21,6 @@ HEADERS += header/log_dao.h \
     header/server_exception.h \
     header/socket_exception.h \
     header/thread_exception.h \
-    header/db_exception.h
+    header/db_exception.h     \
+    header/data.h             \
+    header/server_exception.h
