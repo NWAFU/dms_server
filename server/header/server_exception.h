@@ -4,14 +4,17 @@
 #include <exception>
 #include <string>
 
+using std::string;
+using std::exception;
+
 //0.客户端异常
-class ServerException:public std::exception
+class ServerException:public exception
 {
 private:
-    std::string msg;
+    string msg;
 public:
     ServerException();
-    ServerException(const std::string& msg);
+    ServerException(const string& msg);
     ~ServerException() throw();
     const char* whatMsg();
 };
