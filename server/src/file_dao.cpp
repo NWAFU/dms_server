@@ -1,4 +1,5 @@
-#include "log_dao.h"
+#include "header/log_dao.h"
+#include "header/file_dao.h"
 
 /**************************************************
 *作者:sunwei
@@ -10,8 +11,8 @@
 *返回值：void
 **************************************************/
 
-void FileDao::insert(MatchedLogRec const& matched_log);
+void FileDao::insert(MatchedLogRec const& matched_log)
 {
-    ;
+
 }
 
