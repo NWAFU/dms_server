@@ -8,7 +8,7 @@ class DBException:public ServerException
 {
 public:
     DBException();
-    DBException(const string& msg);
+    DBException(const std::string& msg);
 };
 
 #endif

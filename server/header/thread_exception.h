@@ -8,7 +8,7 @@ class ThreadException:public ServerException
 {
 public:
     ThreadException();
-    ThreadException(const string& msg);
+    ThreadException(const std::string& msg);
 };
 
 #endif // THREAD_EXCEPTION_H

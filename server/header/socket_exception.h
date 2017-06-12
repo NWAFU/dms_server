@@ -8,7 +8,7 @@ class SocketException:public ServerException
 {
 public:
     SocketException();
-    SocketException(const string& msg);
+    SocketException(const std::string& msg);
 };
 
 #endif // SOCKET_EXCEPTION_H
