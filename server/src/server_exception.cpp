@@ -6,16 +6,19 @@ ServerException::ServerException()
     this ->msg ="客户端异常！";
 }
 
-ClientException(const std::string& msg)
+ServerException::ServerException(const std::string& msg)
 {
-    this ->msg = "客户端异常————";
-    this -> msg += msg;
-    this -> msg +="!";
+    this->msg = "客户端异常————";
+    this->msg += msg;
+    this->msg +="!";
 }
 
-ClientException::~ClientException() throw(){}
+ServerException::~ServerException() throw()
+{
 
-ClientException::const char*whatMsg()
+}
+
+const char* ServerException::whatMsg()
 {
     return this ->msg.c_str();
 }

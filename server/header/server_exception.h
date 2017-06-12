@@ -5,14 +5,14 @@
 #include <string>
 
 //0.客户端异常
-class ServerException:public exception
+class ServerException:public std::exception
 {
 private:
     std::string msg;
 public:
     ServerException();
-    ClientException(const std::string& msg);
-    ~ClientException() throw();
+    ServerException(const std::string& msg);
+    ~ServerException() throw();
     const char* whatMsg();
 };
 

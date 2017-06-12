@@ -1,6 +1,5 @@
 #ifndef DB_EXCEPTION_H
 #define DB_EXCEPTION_H
-
 #include"server_exception.h"
 
 //4.数据库异常
@@ -10,7 +9,5 @@ public:
     DBException();
     DBException(const std::string& msg);
 };
-
-#endif
 
 #endif // DB_EXCEPTION_H

@@ -6,8 +6,8 @@ SocketException::SocketException()
     ServerException("套接字异常");
 }
 
-SocketException::SocketException(const std::string& msg)
+SocketException::SocketException(const std::string& msg) : ServerException(msg)
 {
-    ServerException(msg);
+
 }
 
