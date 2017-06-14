@@ -7,7 +7,7 @@
 using std::string;
 using std::exception;
 
-//0.客户端异常
+//0.服务器异常
 class ServerException:public exception
 {
 private:
