@@ -12,7 +12,10 @@ SOURCES += src/main.cpp \
     src/server_exception.cpp \
     src/socket_exception.cpp \
     src/thread_exception.cpp \
-    src/log_queue.cpp
+    src/log_queue.cpp \
+    src/server.cpp \
+    src/client_thread.cpp \
+    src/base_thread.cpp
 HEADERS += header/log_dao.h \
     header/file_dao.h \
     header/oracle_dao.h \
@@ -25,4 +28,6 @@ HEADERS += header/log_dao.h \
     header/db_exception.h     \
     header/data.h             \
     header/server_exception.h \
-    header/log_queue.h
+    header/log_queue.h \
+    header/client_thread.h \
+    header/base_thread.h
