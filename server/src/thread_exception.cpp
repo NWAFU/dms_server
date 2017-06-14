@@ -16,7 +16,7 @@ ThreadException::ThreadException() : ServerException("线程异常")
 *作者：马骏
 *函数名：ThreadException(const string& msg)
 *功能：线程异常类帯参数构造函数
-*输入参数：const string& msg
+*输入参数：msg
 *输出参数：none
 *返回值：none
 **************************************************/
