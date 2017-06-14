@@ -1,4 +1,6 @@
 #include <iostream>
+#include "header/file_dao.h"
+#include <cstring>
 
 using namespace std;
 
