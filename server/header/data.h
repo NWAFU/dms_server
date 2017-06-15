@@ -2,6 +2,10 @@
 #define DATA_H
 
 #include <unistd.h>//pid_t
+#include <fstream>//ofstream
+
+using std::ifstream;
+using std::ofstream;
 
 struct LogRec
 {
@@ -20,6 +24,8 @@ struct MatchedLogRec
     long logout_time;
     long duration;
     char log_ip[32];
+    friend ifstream & operator>>(ifstream & fin,MatchedLogRec & matched_log);
+    friend ofstream & operator<<(ofstream & fout,MatchedLogRec const & matched_log);
 };
 
 #endif // DATA_H
