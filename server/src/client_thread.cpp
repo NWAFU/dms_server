@@ -28,7 +28,7 @@ ClientThread::~ClientThread()
 void ClientThread::run()
 {
     int rlen;
-    MatchedLogRec *buf;
+    MatchedLogRec *buf = NULL;
     while (true)
     {
         rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(buf), 0);

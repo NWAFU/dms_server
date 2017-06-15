@@ -19,10 +19,11 @@ BaseThread::~BaseThread()
 *输出参数：void
 *返回值：void
 **************************************************/
-//void BaseThread::*task(void *arg)
-//{
-//    static_cast<BaseThread*>(arg)->run();
-//}
+void* BaseThread::task(void *arg)
+{
+    static_cast<BaseThread*>(arg)->run();
+    return NULL;
+}
 
 
 /**************************************************

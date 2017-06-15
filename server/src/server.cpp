@@ -13,7 +13,8 @@ Server::Server()
 
 Server::~Server()
 {
-
+    delete store_thread;
+    delete server_socket;
 }
 
 void Server::dataMine()

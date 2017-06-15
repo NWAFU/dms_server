@@ -6,8 +6,8 @@
 *函数名：StoreThread
 *功能：Constructor of StoreThread
 *输入参数：log_dao
-*输出参数：none
-*返回值：none
+*输出参数：void
+*返回值：void
 **************************************************/
 
 StoreThread::StoreThread(FileDao &file_dao, OracleDao &oracle_dao)
@@ -22,12 +22,17 @@ StoreThread::StoreThread(FileDao &file_dao, OracleDao &oracle_dao)
 *日期：2017.06.12
 *函数名：~StoreThread
 *功能：Destructor of StoreThread
-*输入参数：none
-*输出参数：none
-*返回值：none
+*输入参数：void
+*输出参数：void
+*返回值：void
 **************************************************/
 
 StoreThread::~StoreThread()
+{
+
+}
+
+void StoreThread::run()
 {
 
 }

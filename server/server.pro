@@ -31,7 +31,7 @@ HEADERS += header/log_dao.h \
     header/server_exception.h \
     header/log_queue.h \
     header/client_thread.h \
-    header/base_thread.hs
+    header/base_thread.h
 
 PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
 

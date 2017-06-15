@@ -58,11 +58,13 @@ ServerSocket::~ServerSocket()
 **************************************************/
 void ServerSocket::acceptClient()
 {
+    // name socket
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
     server_address.sin_addr.s_addr = inet_addr(server_ip);
     server_address.sin_port = server_port;
     int server_len = sizeof(server_address);
+    // bind socket and address
     int ret = bind(socket_fd, (struct sockaddr *)&server_address, server_len);
 
     if (ret < 0)
