@@ -7,7 +7,6 @@ SOURCES += src/main.cpp \
     src/oracle_dao.cpp \
     src/server_socket.cpp \
     src/store_thread.cpp \
-    src/oracle_dao.cpp \
     src/db_exception.cpp \
     src/server_exception.cpp \
     src/socket_exception.cpp \
@@ -31,3 +30,12 @@ HEADERS += header/log_dao.h \
     header/log_queue.h \
     header/client_thread.h \
     header/base_thread.h
+
+PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
+
+LIBS += \
+     -L$$PTHREAD_LIB \
+     -lpthread
+
+INCLUDEPATH += \
+    /usr/include/

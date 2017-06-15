@@ -10,7 +10,9 @@
 *返回值：none
 **************************************************/
 
-StoreThread::StoreThread(LogDao &log_dao) : log_dao(log_dao)
+StoreThread::StoreThread(FileDao &file_dao, OracleDao &oracle_dao)
+    : file_dao(file_dao),
+      oracle_dao(oracle_dao)
 {
 
 }

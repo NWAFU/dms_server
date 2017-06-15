@@ -10,8 +10,12 @@ private:
 public:
     BaseThread();
     ~BaseThread();
-    static virtual void *task(void *arg) = 0;
-    void run();
+    virtual void run() = 0;
+    static void *task(void *arg)
+    {
+        static_cast<BaseThread*>(arg)->run();
+    }
+    void start();
 };
 
 #endif // BASE_THREAD_H

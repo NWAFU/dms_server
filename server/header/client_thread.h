@@ -9,7 +9,7 @@ private:
 public:
     ClientThread(int conn_fd);
     ~ClientThread();
-    void task(void *arg);
+    void run();
 };
 
 #endif // CLIENT_THREAD_H

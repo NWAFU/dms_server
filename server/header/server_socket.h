@@ -1,14 +1,19 @@
 #ifndef SERVER_SOCKET_H
 #define SERVER_SOCKET_H
+#include <string>
+
+using std::string;
 
 class ServerSocket
 {
 private:
     int socket_fd;
-    int server_port;
+    int client_sockfd;
+    short server_port;      // 4096
+    char server_ip[32];
 public:
     ServerSocket();
-    ServerSocket(int socket_fd, int server_port);
+    ServerSocket(short server_port, char *server_ip);
     ~ServerSocket();
     void acceptClient();
 };
