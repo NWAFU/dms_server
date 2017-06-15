@@ -5,6 +5,11 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <header/log_queue.h>
+#include <iostream>
+#include <header/data.h>
+
+using std::cout;
+using std::endl;
 
 ClientThread::ClientThread(int conn_fd) : conn_fd(conn_fd)
 {
@@ -27,21 +32,29 @@ ClientThread::~ClientThread()
 
 void ClientThread::run()
 {
+    printf("start running\n");
     int rlen;
-    MatchedLogRec *buf = NULL;
+    MatchedLogRec *buf = new MatchedLogRec();
     while (true)
     {
-        rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(buf), 0);
+        rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
-            printf("Receive Error!");
+        {
+            printf("Receive Error!\n");
+            // TODO: add exception
+            pthread_exit(NULL);
+        }
         else if (rlen == 0)
         {
+            printf("Finish receiving!\n");
+            // TODO: add exception
             pthread_exit(NULL);
         }
         else
         {
-            // add matched log into log queue
-            //log_queue << buf;
+            // print data received to console(just for test)
+            // TODO: insert data received into log queue
+            cout << *buf << endl;
         }
     }
 }

@@ -7,7 +7,7 @@ Server::Server()
     FileDao file_dao;
     OracleDao oracle_dao;
     store_thread = new StoreThread(file_dao, oracle_dao);
-    char ip[32] = "10.0.2.15";
+    char ip[32] = "127.0.0.1";
     server_socket = new ServerSocket(4096, ip);
 }
 
@@ -19,5 +19,5 @@ Server::~Server()
 
 void Server::dataMine()
 {
-
+    server_socket->acceptClient();
 }
