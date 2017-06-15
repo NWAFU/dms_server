@@ -1,14 +1,14 @@
 #include <iostream>
-#include "header/file_dao.h"
-#include <cstring>
-
+#include <header/server_socket.h>
+#include <header/server.h>
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
-
+    // Test for module of data-receive
+    ServerSocket server_socket;
+    server_socket.acceptClient();
     return 0;
 }
 
