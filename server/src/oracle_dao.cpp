@@ -10,9 +10,9 @@
 *返回值：void
 **************************************************/
 
-//void OracleDao::insert(MatchedLogRec const& matched_log)
-//{
+void OracleDao::insert(MatchedLogRec const& matched_log)
+{
 
-//}
+}
 
 

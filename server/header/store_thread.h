@@ -1,13 +1,15 @@
 #ifndef STORE_THREAD_H
 #define STORE_THREAD_H
-#include "header/log_dao.h"
+#include "header/file_dao.h"
+#include "header/oracle_dao.h"
 
 class StoreThread
 {
 private:
-    LogDao &log_dao;
+    FileDao &file_dao;
+    OracleDao &oracle_dao;
 public:
-    StoreThread(LogDao &);
+    StoreThread(FileDao &, OracleDao &);
     ~StoreThread();
 };
 

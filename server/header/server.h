@@ -6,10 +6,11 @@
 class Server
 {
 private:
-    ServerSocket server_socket;
-    StoreThread store_thread;
+    ServerSocket *server_socket;
+    StoreThread *store_thread;
 public:
     Server();
+    ~Server();
     void dataMine();
 };
 
