@@ -7,6 +7,7 @@
 #include <header/log_queue.h>
 #include <iostream>
 #include <header/data.h>
+#include "header/server_exception.h"
 
 using std::cout;
 using std::endl;
@@ -40,14 +41,13 @@ void ClientThread::run()
         rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
         {
-            printf("Receive Error!\n");
-            // TODO: add exception
-            pthread_exit(NULL);
+            cout << "Receive error!" << endl;
+            throw ServerException("Receive error!");
         }
         else if (rlen == 0)
         {
-            printf("Finish receiving!\n");
-            // TODO: add exception
+            cout << "Finish receiving!" << endl;
+            // close this thread
             pthread_exit(NULL);
         }
         else

@@ -47,7 +47,6 @@ ofstream & operator <<(ofstream & fout,MatchedLogRec const & matched_log)
     fout<<matched_log.duration;
     fout<<" ";
     fout<<matched_log.log_ip;
-    fout<<endl;
     return fout;
 }
 

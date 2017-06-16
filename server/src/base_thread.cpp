@@ -1,6 +1,13 @@
-#include <stdio.h>
+#include <iostream>
 #include "header/base_thread.h"
 #include <pthread.h>
+#include "header/thread_exception.h"
+
+using std::cout;
+using std::endl;
+
+#define __DEBUG__
+
 BaseThread::BaseThread()
 {
 
@@ -36,5 +43,12 @@ void* BaseThread::task(void *arg)
 **************************************************/
 void BaseThread::start()
 {
-    pthread_create(&tid, NULL, task, this);
+    int res = pthread_create(&tid, NULL, task, this);
+    if (res != 0)
+    {
+#ifdef __DEBUG__
+        cout << "Thread creation failed!" << endl;
+#endif
+        throw ThreadException("Thread creation failed!");
+    }
 }
