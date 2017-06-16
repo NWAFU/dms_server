@@ -6,9 +6,7 @@ using namespace std;
 
 int main()
 {
-    // Test for module of data-receive
-    ServerSocket server_socket;
-    server_socket.acceptClient();
+    cout << "Hello, World!" << endl;
     return 0;
 }
 
