@@ -9,7 +9,7 @@ private:
     pthread_t tid;
 public:
     BaseThread();
-    ~BaseThread();
+    virtual ~BaseThread() = 0;
     virtual void run() = 0;
     static void *task(void *arg);
     void start();
