@@ -140,7 +140,11 @@ void ServerSocket::acceptClient()
             }
             catch(ThreadException te)
             {
-                te.what();
+                cout << te.what() << endl;
+            }
+            catch(ServerException se)
+            {
+                cout << se.what() << endl;
             }
         }
     }
