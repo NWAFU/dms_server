@@ -8,8 +8,7 @@ class BaseThread
 private:
     pthread_t tid;
 public:
-    BaseThread();
-    virtual ~BaseThread() = 0;
+    virtual ~BaseThread();
     virtual void run() = 0;
     static void *task(void *arg);
     void start();

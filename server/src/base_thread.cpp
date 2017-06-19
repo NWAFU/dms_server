@@ -8,11 +8,6 @@ using std::endl;
 
 #define __DEBUG__
 
-BaseThread::BaseThread()
-{
-
-}
-
 BaseThread::~BaseThread()
 {
 

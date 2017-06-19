@@ -16,7 +16,7 @@ using std::cout;
 using std::endl;
 
 #define __DEBUG__
-#define IP_ADDR "127.0.0.1"
+#define IP_ADDR "172.29.23.167"
 #define PORT 4096
 
 /**************************************************
@@ -132,6 +132,7 @@ void ServerSocket::acceptClient()
         }
         else
         {
+            cout << "Connection succeeded." << endl;
             // start a new client thread to deal with the client connecting
             try
             {

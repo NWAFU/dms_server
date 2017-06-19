@@ -52,11 +52,11 @@ ofstream & operator <<(ofstream & fout,MatchedLogRec const & matched_log)
 
 ostream & operator<<(ostream & out,MatchedLogRec const & matched_log)
 {
-    out<<"Log-in name: "<<matched_log.login_time<<endl;
-    out<<"Log-in process id: "<<matched_log.pid<<endl;
+    out<<"Log-in name: "<<matched_log.log_name<<endl;
+    out<<"Log-in pid: "<<matched_log.pid<<endl;
     out<<"Log-in time: "<<matched_log.login_time<<endl;
     out<<"Log-out time: "<<matched_log.logout_time<<endl;
     out<<"Duration time: "<<matched_log.duration<<endl;
-    out<<"Log-in IP: "<<matched_log.log_ip<<endl;
+    out<<"Log-in ip: "<<matched_log.log_ip<<endl;
     return out;
 }

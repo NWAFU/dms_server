@@ -9,6 +9,8 @@
 #include <header/data.h>
 #include "header/server_exception.h"
 
+#define __DEBUG__
+
 using std::cout;
 using std::endl;
 
@@ -19,7 +21,8 @@ ClientThread::ClientThread(int conn_fd) : conn_fd(conn_fd)
 
 ClientThread::~ClientThread()
 {
-
+    // close this thread
+    pthread_exit(NULL);
 }
 
 /**************************************************
@@ -36,6 +39,9 @@ void ClientThread::run()
     printf("start running\n");
     int rlen;
     MatchedLogRec *buf = new MatchedLogRec();
+#ifdef __DEBUG__
+    int rcv_count = 0;      // count the number of received logs
+#endif
     while (true)
     {
         rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(MatchedLogRec), 0);
@@ -47,11 +53,16 @@ void ClientThread::run()
         else if (rlen == 0)
         {
             cout << "Finish receiving!" << endl;
-            // close this thread
-            pthread_exit(NULL);
+#ifdef __DEBUG__
+            cout << "Received: " << rcv_count << endl;
+#endif
+            delete this;
         }
         else
         {
+#ifdef __DEBUG__
+            rcv_count++;
+#endif
             // print data received to console(just for test)
             // TODO: insert data received into log queue
             cout << *buf << endl;
