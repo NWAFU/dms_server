@@ -33,13 +33,13 @@ ServerException::~ServerException() throw()
 }
 /**************************************************
 *作者：马骏
-*函数名：const char*whatMsg()
-*功能：返回服务器异常类错误字符串msg
+*函数名：const char*what()
+*功能：返回服务器异常类错误字符串
 *输入参数：none
 *输出参数：none
 *返回值：const char*
 **************************************************/
-const char* ServerException::whatMsg()
+const char* ServerException::what()
 {
     return this ->msg.c_str();
 }

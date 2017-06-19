@@ -16,7 +16,7 @@ public:
     ServerException();
     ServerException(const string& msg);
     ~ServerException() throw();
-    const char* whatMsg();
+    const char * what();
 };
 
 #endif
