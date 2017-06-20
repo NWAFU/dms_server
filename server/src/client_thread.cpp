@@ -38,13 +38,13 @@ void ClientThread::run()
 {
     printf("start running\n");
     int rlen;
-    MatchedLogRec *buf = new MatchedLogRec();
+    MatchedLogRec buf;
 #ifdef __DEBUG__
     int rcv_count = 0;      // count the number of received logs
 #endif
     while (true)
     {
-        rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(MatchedLogRec), 0);
+        rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
         {
             cout << "Receive error!" << endl;
@@ -65,7 +65,7 @@ void ClientThread::run()
 #endif
             // print data received to console(just for test)
             // TODO: insert data received into log queue
-            cout << *buf << endl;
+            cout << buf << endl;
         }
     }
 }

@@ -16,8 +16,7 @@ using std::endl;
 Server::Server()
 {
     FileDao file_dao;
-    OracleDao oracle_dao;
-    store_thread = new StoreThread(file_dao, oracle_dao);
+    store_thread = new StoreThread(file_dao);
     char ip[32] = DEFAULT_IP;
     try
     {
@@ -37,9 +36,11 @@ Server::~Server()
 
 void Server::dataMine()
 {
+    // start store thread
     store_thread->start();
     try
     {
+        // start to accept data from clients
         server_socket->acceptClient();
     }
     catch(ServerException se)

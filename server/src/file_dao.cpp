@@ -4,6 +4,8 @@
 #include <iostream>
 using namespace std;
 
+#define __DEBUG__
+
 /**************************************************
 *作者:sunwei
 *日期：2017.06.14

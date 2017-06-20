@@ -1,4 +1,5 @@
 #include "header/store_thread.h"
+#include "header/log_queue.h"
 
 /**************************************************
 *作者：Liu Chaoyang
@@ -10,9 +11,8 @@
 *返回值：void
 **************************************************/
 
-StoreThread::StoreThread(FileDao &file_dao, OracleDao &oracle_dao)
-    : file_dao(file_dao),
-      oracle_dao(oracle_dao)
+StoreThread::StoreThread(LogDao &log_dao)
+    : log_dao(log_dao)
 {
 
 }
@@ -34,5 +34,10 @@ StoreThread::~StoreThread()
 
 void StoreThread::run()
 {
-
+    while (true)
+    {
+        MatchedLogRec mlg;
+        log_queue >> mlg;
+        log_dao.insert(mlg);
+    }
 }

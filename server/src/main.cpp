@@ -1,11 +1,16 @@
 #include <iostream>
+#include "header/log_queue.h"
+#include "header/server.h"
 
 using namespace std;
 
+// define global variable 'log_queue'
+LogQueue log_queue;
+
 int main()
 {
-//    cout << "Hello, World!" << endl;
-
+    Server server;
+    server.dataMine();
     return 0;
 }
 
