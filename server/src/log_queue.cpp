@@ -34,7 +34,7 @@ LogQueue& LogQueue::operator <<(MatchedLogRec const& matched_log)
         pthread_cond_wait(&not_full, &client_store_mutex);
     }
     log_record.push_back(matched_log);
-    pthread_cond_signal(&not_empty);
+    //pthread_cond_signal(&not_empty);
     pthread_mutex_unlock(&client_store_mutex);
     return *this;
 }
