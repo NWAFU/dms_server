@@ -5,6 +5,11 @@
 #include "header/oracle_dao.h"
 #include "header/server_exception.h"
 
+#define __DEBUG__
+#ifdef __DEBUG__
+    #define DEFAULT_IP "127.0.0.1"
+#endif
+
 using std::cout;
 using std::endl;
 
@@ -13,7 +18,7 @@ Server::Server()
     FileDao file_dao;
     OracleDao oracle_dao;
     store_thread = new StoreThread(file_dao, oracle_dao);
-    char ip[32] = "127.0.0.1";
+    char ip[32] = DEFAULT_IP;
     try
     {
         server_socket = new ServerSocket(4096, ip);
@@ -32,6 +37,7 @@ Server::~Server()
 
 void Server::dataMine()
 {
+    store_thread->start();
     try
     {
         server_socket->acceptClient();
