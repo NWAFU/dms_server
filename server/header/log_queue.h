@@ -12,9 +12,13 @@ private:
     pthread_mutex_t client_store_mutex;
     pthread_cond_t not_full;
     pthread_cond_t not_empty;
+//    int max_size;
+//    int cur_size;
 public:
     LogQueue();
     ~LogQueue();
+//    int getMaxSize();
+//    int getCurSize();
     LogQueue& operator <<(MatchedLogRec const& matched_log);
     LogQueue& operator >>(MatchedLogRec& matched_log);
 };
