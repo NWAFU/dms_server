@@ -2,11 +2,12 @@
 #define FILE_DAO_H
 #include "log_dao.h"
 #include <iostream>
+#include <cstring>
 
 class FileDao:public LogDao
 {
 private:
-    ofstream file;
+    char filename[32];
 public:
     FileDao();
     ~FileDao();

@@ -35,9 +35,7 @@ Server::~Server()
 }
 
 void Server::dataMine()
-{
-    // start store thread
-    store_thread->start();
+{    
     try
     {
         // start to accept data from clients
@@ -47,4 +45,6 @@ void Server::dataMine()
     {
         cout << se.what() << endl;
     }
+    // start store thread
+    store_thread->start();
 }
