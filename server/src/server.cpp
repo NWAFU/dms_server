@@ -15,8 +15,6 @@ using std::endl;
 
 Server::Server()
 {
-    FileDao file_dao;
-    store_thread = new StoreThread(file_dao);
     char ip[32] = DEFAULT_IP;
     try
     {
@@ -35,7 +33,11 @@ Server::~Server()
 }
 
 void Server::dataMine()
-{    
+{
+    FileDao file_dao;
+    store_thread = new StoreThread(file_dao);
+    // start store thread
+    store_thread->start();
     try
     {
         // start to accept data from clients
@@ -45,6 +47,4 @@ void Server::dataMine()
     {
         cout << se.what() << endl;
     }
-    // start store thread
-    store_thread->start();
 }
