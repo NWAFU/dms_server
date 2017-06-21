@@ -41,3 +41,6 @@ LIBS += \
 
 INCLUDEPATH += \
     /usr/include/
+
+OTHER_FILES += \
+    script/start.sh

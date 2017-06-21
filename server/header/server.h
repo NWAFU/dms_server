@@ -10,6 +10,7 @@ private:
     StoreThread *store_thread;
 public:
     Server();
+    Server(char *server_ip, short server_port);
     ~Server();
     void dataMine();
 };
