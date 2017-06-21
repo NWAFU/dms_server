@@ -16,7 +16,10 @@ using namespace std;
 *返回值：none
 **************************************************/
 
-FileDao::FileDao(): LogDao(),file("matched_record.txt", ofstream::out|ofstream::ate){}
+FileDao::FileDao(): LogDao()
+{
+    strcpy(filename, "matched_record.txt");
+}
 
 /**************************************************
 *作者:sunwei
@@ -24,32 +27,29 @@ FileDao::FileDao(): LogDao(),file("matched_record.txt", ofstream::out|ofstream::
 *函数名：insert
 *功能：将日志记录写到文件中
 *输入参数：Log匹配好的登录日志记录
-*输出参数：无
-*返回值：void
+*输出参数：none
+*返回值：none
 **************************************************/
 
 void FileDao::insert(MatchedLogRec const& matched_log)
 {
-    // TODO: open file here
-    if (file.fail())
+    ofstream file(filename, ofstream::out|ofstream::ate|ofstream::app);
+    if (!file.is_open())
     {
 #ifdef __DEBUG__
-        cout<<"error:file_dao open file!"<<endl;
+        cout<<"open file failed!"<<endl;
 #endif
         return;
     }
     else
     {
 #ifdef __DEBUG__
-        cout<<"write success"<<endl;
+        cout<<"open file succeeded."<<endl;
 #endif
     }
     file << matched_log;
     file << "\n";
-    // TODO: close file
-    // ...
-    // TODO: remove return
-    //return ;
+    file.close();
 }
 
 /**************************************************
@@ -62,7 +62,4 @@ void FileDao::insert(MatchedLogRec const& matched_log)
 *返回值：none
 **************************************************/
 
-FileDao::~FileDao()
-{
-    file.close();
-}
+FileDao::~FileDao(){}
