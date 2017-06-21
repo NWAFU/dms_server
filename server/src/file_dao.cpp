@@ -30,6 +30,7 @@ FileDao::FileDao(): LogDao(),file("matched_record.txt", ofstream::out|ofstream::
 
 void FileDao::insert(MatchedLogRec const& matched_log)
 {
+    // TODO: open file here
     if (file.fail())
     {
 #ifdef __DEBUG__
@@ -37,8 +38,18 @@ void FileDao::insert(MatchedLogRec const& matched_log)
 #endif
         return;
     }
+    else
+    {
+#ifdef __DEBUG__
+        cout<<"write success"<<endl;
+#endif
+    }
     file << matched_log;
-    return ;
+    file << "\n";
+    // TODO: close file
+    // ...
+    // TODO: remove return
+    //return ;
 }
 
 /**************************************************

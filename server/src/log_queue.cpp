@@ -1,5 +1,6 @@
 #include "header/log_queue.h"
 #include <iostream>
+#include "header/server_exception.h"
 #define __DEBUG__
 
 using std::list;
@@ -8,9 +9,50 @@ using std::endl;
 
 LogQueue::LogQueue()
 {
-    pthread_mutex_init(&client_store_mutex, NULL);
-    pthread_cond_init(&not_full, NULL);
-    pthread_cond_init(&not_empty, NULL);
+    int res;
+
+    res = pthread_mutex_init(&client_store_mutex, NULL);
+    if (res != 0)
+    {
+#ifdef __DEBUG__
+        cout << "Thread mutex initialization failed!" << endl;
+#endif
+        throw ServerException("Thread mutex initialization failed!");
+    }
+    else
+    {
+#ifdef __DEBUG__
+        cout << "Thread mutex initialization succeeded." << endl;
+#endif
+    }
+    res = pthread_cond_init(&not_full, NULL);
+    if (res != 0)
+    {
+#ifdef __DEBUG__
+        cout << "Thread condition: 'not_full' initialization failed!" << endl;
+#endif
+        throw ServerException("Thread condition: 'not_full' initialization failed!");
+    }
+    else
+    {
+#ifdef __DEBUG__
+        cout << "Thread condition: 'not_full' initialization succeeded." << endl;
+#endif
+    }
+    res = pthread_cond_init(&not_empty, NULL);
+    if (res != 0)
+    {
+#ifdef __DEBUG__
+        cout << "Thread condition: 'not_empty' initialization failed!" << endl;
+#endif
+        throw ServerException("Thread condition: 'not_empty' initialization failed!");
+    }
+    else
+    {
+#ifdef __DEBUG__
+        cout << "Thread condition: 'not_empty' initialization succeeded." << endl;
+#endif
+    }
 }
 
 //int LogQueue::getMaxSize()
@@ -34,7 +76,7 @@ LogQueue& LogQueue::operator <<(MatchedLogRec const& matched_log)
         pthread_cond_wait(&not_full, &client_store_mutex);
     }
     log_record.push_back(matched_log);
-    //pthread_cond_signal(&not_empty);
+    pthread_cond_signal(&not_empty);
     pthread_mutex_unlock(&client_store_mutex);
     return *this;
 }

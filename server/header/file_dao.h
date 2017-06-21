@@ -6,6 +6,7 @@
 class FileDao:public LogDao
 {
 private:
+    // replace with file_name
     ofstream file;
 public:
     FileDao();
