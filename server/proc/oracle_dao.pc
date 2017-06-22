@@ -1,0 +1,53 @@
+#include<iostream>
+#include"header/oracle_dao.h"
+#include<cstdlib>
+#include<cstring>
+using namespace std;
+EXEC SQL BEGIN DECLARE SECTION;
+char user_passwd[20];
+char log_name[32];
+int pid;
+int login_time;
+int logout_time;
+int duration;
+char ip[32];
+EXEC SQL END DECLARE SECTION;
+EXEC SQl include sqlca;
+
+OracleDao::OracleDao()
+{
+	EXEC SQL WHENEVER SQLERROR stop;
+	strcpy(user_passwd, "system/open123");
+	EXEC SQL CONNECT:user_passwd;
+	if(0 == sqlca.sqlcode)
+	{
+		printf("success to connect database\n");
+	}
+	else
+	{
+		printf("failed to connect database\n");
+                exit(0);
+        }
+}
+
+void OracleDao::insert(MatchedLogRec const& matched_log)
+{
+        strcpy(log_name,matched_log.log_name);
+        pid = matched_log.pid;
+        login_time = matched_log.login_time;
+        logout_time = matched_log.logout_time;
+        duration = matched_log.duration;
+        strcpy(ip,matched_log.log_ip);
+        EXEC SQL insert into matched_record(log_name, pid, login_time, logout_time, duration, ip) values(:log_name, :pid, :login_time,
+        :logout_time, :duration, :ip);
+        if(sqlca.sqlcode != 0)
+            printf("insert failed!\n");
+        exec sql commit;
+
+
+}
+
+OracleDao::~OracleDao()
+{
+        exec sql commit work release;
+}
