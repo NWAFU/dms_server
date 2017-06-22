@@ -16,7 +16,7 @@ SOURCES += src/main.cpp \
     src/server.cpp \
     src/client_thread.cpp \
     src/base_thread.cpp \
-    src/oracle_dao.cpp
+    src/oracle_dao.cpp  \
     src/save_exception.cpp \
     src/read_exception.cpp
 
