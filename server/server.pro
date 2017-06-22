@@ -4,7 +4,6 @@ CONFIG -= app_bundle
 CONFIG -= qt
 SOURCES += src/main.cpp \
     src/file_dao.cpp \
-    src/oracle_dao.cpp \
     src/server_socket.cpp \
     src/store_thread.cpp \
     src/db_exception.cpp \
@@ -16,8 +15,8 @@ SOURCES += src/main.cpp \
     src/log_dao.cpp \
     src/server.cpp \
     src/client_thread.cpp \
-    src/base_thread.cpp
-
+    src/base_thread.cpp \
+    src/oracle_dao.cpp
 HEADERS += header/log_dao.h \
     header/file_dao.h \
     header/oracle_dao.h \
@@ -34,10 +33,12 @@ HEADERS += header/log_dao.h \
     header/base_thread.h
 
 PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
+LIBS += -L$$PTHREAD_LIB \
+    -lpthread \
 
-LIBS += \
-     -L$$PTHREAD_LIB \
-     -lpthread
+#ORACLE_LIB = /opt/ora10/lib
+#config += -dll $$ORACLE_LIB/*
+LIBS += -lclntsh
+LIBS += -L/opt/ora10/lib/libclntsh.so.10.1
 
-INCLUDEPATH += \
-    /usr/include/
+OTHER_FILES += proc/oracle_dao.pc

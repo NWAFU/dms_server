@@ -28,3 +28,12 @@ DMS3.0系统主要实现以下核心功能：数据读取，数据匹配，数�
 
 整合这些数据形成日报表，月报表和年报表。
 
+# 编译
+
+## .pc文件的编译
+
+使用下面的命令编译生成cpp文件即可：
+
+```
+proc proc/oracle_dao.pc header/oracle_dao.h oname=src/oracle_dao.cpp parse=none code=cpp
+```

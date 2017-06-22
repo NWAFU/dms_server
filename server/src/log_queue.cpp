@@ -9,8 +9,8 @@ using std::endl;
 
 LogQueue::LogQueue()
 {
-    int res;
 
+    int res;
     res = pthread_mutex_init(&client_store_mutex, NULL);
     if (res != 0)
     {
