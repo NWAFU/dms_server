@@ -5,6 +5,14 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <header/log_queue.h>
+#include <iostream>
+#include <header/data.h>
+#include "header/server_exception.h"
+
+#define __DEBUG__
+
+using std::cout;
+using std::endl;
 
 ClientThread::ClientThread(int conn_fd) : conn_fd(conn_fd)
 {
@@ -13,7 +21,8 @@ ClientThread::ClientThread(int conn_fd) : conn_fd(conn_fd)
 
 ClientThread::~ClientThread()
 {
-
+    // close this thread
+    pthread_exit(NULL);
 }
 
 /**************************************************
@@ -27,21 +36,37 @@ ClientThread::~ClientThread()
 
 void ClientThread::run()
 {
+    printf("start running\n");
     int rlen;
-    MatchedLogRec *buf;
+    MatchedLogRec buf;
+#ifdef __DEBUG__
+    int rcv_count = 0;      // count the number of received logs
+#endif
     while (true)
     {
-        rlen = recv(conn_fd, (MatchedLogRec*) buf, sizeof(buf), 0);
+        rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
-            printf("Receive Error!");
+        {
+            cout << "Receive error!" << endl;
+            throw ServerException("Receive error!");
+        }
         else if (rlen == 0)
         {
-            pthread_exit(NULL);
+            cout << "Finish receiving!" << endl;
+#ifdef __DEBUG__
+            cout << "Received: " << rcv_count << endl;
+#endif
+            delete this;
         }
         else
         {
-            // add matched log into log queue
-            //log_queue << buf;
+#ifdef __DEBUG__
+            rcv_count++;           
+            // print data received to console(just for test)
+            cout << buf << endl;
+#endif
+            // insert data received into log queue
+            log_queue << buf;
         }
     }
 }

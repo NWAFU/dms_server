@@ -5,6 +5,8 @@
 class LogDao
 {
 public:
+    LogDao();
+    virtual ~LogDao();
     virtual void insert(MatchedLogRec const& matched_log) = 0;
 };
 

@@ -1,11 +1,23 @@
-#include "header/server_socket.h"
 #include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <pthread.h>
-#include "header/client_thread.h"
 #include <string.h>
+#include <iostream>
+#include <stdlib.h>
+
+#include "header/socket_exception.h"
+#include "header/client_thread.h"
+#include "header/server_socket.h"
+#include "header/thread_exception.h"
+
+using std::cout;
+using std::endl;
+
+#define __DEBUG__
+#define IP_ADDR "172.29.23.167"
+#define PORT 4096
 
 /**************************************************
 *作者：Liu Chaoyang
@@ -18,14 +30,36 @@
 **************************************************/
 ServerSocket::ServerSocket()
 {
-    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    strcpy(server_ip, "10.0.2.15");
-    server_port = 4096;
+    int ret = socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (ret < 0)
+    {
+#ifdef __DEBUG__
+        cout << "Socket creation failed!" << endl;
+#endif
+        throw SocketException("Socket creation failed!");
+    }
+    else
+    {
+        cout << "Socket creation succeeded." << endl;
+    }
+    strcpy(server_ip, IP_ADDR);
+    server_port = PORT;
 }
 
 ServerSocket::ServerSocket(short server_port, char *server_ip)
 {
-    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    int ret = socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (ret < 0)
+    {
+#ifdef __DEBUG__
+        cout << "Socket creation failed!" << endl;
+#endif
+        throw SocketException("Socket creation failed!");
+    }
+    else
+    {
+        cout << "Socket creation succeeded." << endl;
+    }
     strcpy(this->server_ip, server_ip);
     this->server_port = server_port;
 }
@@ -58,32 +92,61 @@ ServerSocket::~ServerSocket()
 **************************************************/
 void ServerSocket::acceptClient()
 {
+    // name socket
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
     server_address.sin_addr.s_addr = inet_addr(server_ip);
-    server_address.sin_port = server_port;
+    server_address.sin_port = htons(server_port);
     int server_len = sizeof(server_address);
+
+    // bind socket and address 
     int ret = bind(socket_fd, (struct sockaddr *)&server_address, server_len);
 
     if (ret < 0)
     {
-        // bind exception
+#ifdef __DEBUG__
+        cout << "Socket bind failed!" << endl;
+#endif
+        throw SocketException("Socket bind failed!");
     }
+    else
+    {
+        cout << "Socket bind succeeded." << endl;
+    }
+    // listen socket
     listen(socket_fd, 100);
 
+    // waiting for request of connection
     while (true)
     {
         struct sockaddr_in client_address;
         int client_len = sizeof(client_address);
+        cout << "Waiting for connections ..." << endl;
         client_sockfd = accept(socket_fd, (struct sockaddr *)&client_address, (socklen_t *)&client_len);
         if (client_sockfd < 0)
         {
-            // connect exception
+#ifdef __DEBUG__
+            cout << "Connection error!" << endl;
+#endif
+            throw SocketException("Connection error!");
         }
         else
         {
-            ClientThread client_thread(client_sockfd);
-            client_thread.start();
+            cout << "Connection succeeded." << endl;
+            // start a new client thread to deal with the client connecting
+            try
+            {
+                ClientThread *client_thread = new ClientThread(client_sockfd);
+                client_thread->start();
+            }
+            catch(ThreadException te)
+            {
+                cout << te.what() << endl;
+            }
+            catch(ServerException se)
+            {
+                cout << se.what() << endl;
+            }
         }
     }
 }
