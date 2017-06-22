@@ -35,12 +35,14 @@ DMS3.0系统主要实现以下核心功能：数据读取，数据匹配，数�
 IDE: Qt Creator 3.0.1
 编译器: GCC 4.8.2, 64bit
 操作系统：Ubuntu 14.04 LTS
+数据库：oracle10g
 
 或者
 
 IDE: Qt Creator 1.3.1
 编译器: gcc (Ubuntu 4.4.3-4ubuntu5.1) 4.4.3
 操作系统：Ubuntu 10.04 LTS
+数据库：oracle10g
 
 ## .pc文件的编译
 
@@ -48,4 +50,14 @@ IDE: Qt Creator 1.3.1
 
 ```
 proc proc/oracle_dao.pc header/oracle_dao.h oname=src/oracle_dao.cpp parse=none code=cpp
+```
+
+# 运行
+
+## 数据库创建表格
+
+运行下列sql语句即可创建该程序所需要的表：
+
+```
+create table matched_record(log_id VARCHAR2(32) Primary key, log_name VARCHAR2(32), pid number, login_time number, logout_time number, duration number, log_ip VARCHAR2(32));
 ```

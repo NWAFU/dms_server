@@ -38,7 +38,7 @@ StoreThread::~StoreThread()
 
 void StoreThread::run()
 {
-    cout << "File Dao start..." << endl;
+    cout << "Oracle Dao start..." << endl;
     while (true)
     {
         MatchedLogRec mlg;

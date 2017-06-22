@@ -2,9 +2,11 @@
 #include"header/oracle_dao.h"
 #include<cstdlib>
 #include<cstring>
+#include<ctime>
 using namespace std;
 EXEC SQL BEGIN DECLARE SECTION;
 char user_passwd[20];
+char log_id[32];
 char log_name[32];
 int pid;
 int login_time;
@@ -32,16 +34,23 @@ OracleDao::OracleDao()
 
 void OracleDao::insert(MatchedLogRec const& matched_log)
 {
+        time_t m_time = time(NULL);
+        struct tm* time = localtime(&m_time);
+        int year = time->tm_year + 1900;
+        int mon = time->tm_mon + 1;
+        int day = time->tm_mday;
+        int hour = time->tm_hour;
+        int min = time->tm_min;
+        int sec = time->tm_sec;
+        sprintf(log_id,"%04d-%02d-%02d %02d:%02d:%02d", year, mon, day, hour, min, sec);
         strcpy(log_name,matched_log.log_name);
         pid = matched_log.pid;
         login_time = matched_log.login_time;
         logout_time = matched_log.logout_time;
         duration = matched_log.duration;
         strcpy(ip,matched_log.log_ip);
-        EXEC SQL insert into matched_record(log_name, pid, login_time, logout_time, duration, ip) values(:log_name, :pid, :login_time,
+        EXEC SQL insert into matched_record(log_id, log_name, pid, login_time, logout_time, duration, ip) values(:log_id, :log_name, :pid, :login_time,
         :logout_time, :duration, :ip);
-        if(sqlca.sqlcode != 0)
-            printf("insert failed!\n");
         exec sql commit;
 
 
