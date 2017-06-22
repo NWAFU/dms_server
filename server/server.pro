@@ -17,6 +17,9 @@ SOURCES += src/main.cpp \
     src/client_thread.cpp \
     src/base_thread.cpp \
     src/oracle_dao.cpp
+    src/save_exception.cpp \
+    src/read_exception.cpp
+
 HEADERS += header/log_dao.h \
     header/file_dao.h \
     header/oracle_dao.h \
@@ -30,15 +33,16 @@ HEADERS += header/log_dao.h \
     header/server_exception.h \
     header/log_queue.h \
     header/client_thread.h \
-    header/base_thread.h
-
+    header/base_thread.h \
+    header/save_exception.h \
+    header/read_exception.h
+    
 PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
 LIBS += -L$$PTHREAD_LIB \
     -lpthread \
 
-#ORACLE_LIB = /opt/ora10/lib
-#config += -dll $$ORACLE_LIB/*
 LIBS += -lclntsh
-LIBS += -L/opt/ora10/lib/libclntsh.so.10.1
 
-OTHER_FILES += proc/oracle_dao.pc
+OTHER_FILES += \
+    script/start.sh \
+    proc/oracle_dao.pc

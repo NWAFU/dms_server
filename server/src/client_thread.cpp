@@ -61,11 +61,11 @@ void ClientThread::run()
         else
         {
 #ifdef __DEBUG__
-            rcv_count++;
-#endif
+            rcv_count++;           
             // print data received to console(just for test)
-            // TODO: insert data received into log queue
-            //cout << buf << endl;
+            cout << buf << endl;
+#endif
+            // insert data received into log queue
             log_queue << buf;
         }
     }

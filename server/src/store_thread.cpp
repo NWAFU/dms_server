@@ -38,20 +38,16 @@ StoreThread::~StoreThread()
 
 void StoreThread::run()
 {
-#ifdef __DEBUG__
-        cout << "File Dao start..." << endl;
-#endif
+    cout << "File Dao start..." << endl;
     while (true)
     {
         MatchedLogRec mlg;
-#ifdef __DEBUG__
-        cout << "get data: " << endl;
-        cout << mlg;
-#endif
+        // get data from log queue
         log_queue >> mlg;
+        // insert data received into file
         log_dao.insert(mlg);
 #ifdef __DEBUG__
-        cout << "Saved in file" << endl;
+        cout << "File writing succeeded" << endl;
 #endif
     }
 }
