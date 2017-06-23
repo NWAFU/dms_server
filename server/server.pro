@@ -2,6 +2,7 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
+
 SOURCES += src/main.cpp \
     src/file_dao.cpp \
     src/server_socket.cpp \
@@ -19,6 +20,7 @@ SOURCES += src/main.cpp \
     src/oracle_dao.cpp \
     src/save_exception.cpp \
     src/read_exception.cpp
+    
 HEADERS += header/log_dao.h \
     header/file_dao.h \
     header/oracle_dao.h \
@@ -35,10 +37,15 @@ HEADERS += header/log_dao.h \
     header/base_thread.h \
     header/save_exception.h \
     header/read_exception.h
+    
 PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
 LIBS += -L$$PTHREAD_LIB \
     -lpthread
+    
 LIBS += -lclntsh
-OTHER_FILES += script/start.sh \
+
+OTHER_FILES += \
+    script/start.sh \
     proc/oracle_dao.pc \
+    config/config.cfg   \
     sql/init_database.sql
