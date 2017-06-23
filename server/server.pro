@@ -45,4 +45,6 @@ LIBS += -lclntsh
 
 OTHER_FILES += \
     script/start.sh \
-    proc/oracle_dao.pc
+    proc/oracle_dao.pc \
+    config/config.cfg
+
