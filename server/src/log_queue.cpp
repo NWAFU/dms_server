@@ -7,6 +7,14 @@ using std::list;
 using std::cout;
 using std::endl;
 
+/**************************************************
+*作者：Liu Chaoyang
+*函数名：LogQueue constructor
+*功能：initial thread mutex and conditon variables
+*输入参数：none
+*输出参数：none
+*返回值：none
+**************************************************/
 LogQueue::LogQueue()
 {
 
@@ -22,7 +30,7 @@ LogQueue::LogQueue()
     else
     {
 #ifdef __DEBUG__
-        cout << "Thread mutex initialization succeeded." << endl;
+        cout << "ok:Thread mutex initialization succeeded." << endl;
 #endif
     }
     res = pthread_cond_init(&not_full, NULL);
@@ -36,7 +44,7 @@ LogQueue::LogQueue()
     else
     {
 #ifdef __DEBUG__
-        cout << "Thread condition: 'not_full' initialization succeeded." << endl;
+        cout << "ok:Thread condition: 'not_full' initialization succeeded." << endl;
 #endif
     }
     res = pthread_cond_init(&not_empty, NULL);
@@ -50,21 +58,19 @@ LogQueue::LogQueue()
     else
     {
 #ifdef __DEBUG__
-        cout << "Thread condition: 'not_empty' initialization succeeded." << endl;
+        cout << "ok:Thread condition: 'not_empty' initialization succeeded." << endl;
 #endif
     }
 }
 
-//int LogQueue::getMaxSize()
-//{
-//    return max_size;
-//}
-
-//int LogQueue::getCurSize()
-//{
-//    return cur_size;
-//}
-
+/**************************************************
+*作者：Liu Chaoyang
+*函数名：operator <<
+*功能：insert data into log queue
+*输入参数：matched_log
+*输出参数：none
+*返回值：LogQueue
+**************************************************/
 LogQueue& LogQueue::operator <<(MatchedLogRec const& matched_log)
 {
     pthread_mutex_lock(&client_store_mutex);
@@ -81,6 +87,14 @@ LogQueue& LogQueue::operator <<(MatchedLogRec const& matched_log)
     return *this;
 }
 
+/**************************************************
+*作者：Liu Chaoyang
+*函数名：operator >>
+*功能：insert data into log queue
+*输入参数：matched_log
+*输出参数：none
+*返回值：LogQueue
+**************************************************/
 LogQueue& LogQueue::operator >>(MatchedLogRec& matched_log)
 {
     pthread_mutex_lock(&client_store_mutex);
@@ -98,6 +112,15 @@ LogQueue& LogQueue::operator >>(MatchedLogRec& matched_log)
     return *this;
 }
 
+
+/**************************************************
+*作者：Liu Chaoyang
+*函数名：LogQueue destructor
+*功能：destroy thread mutex and conditon variables
+*输入参数：none
+*输出参数：none
+*返回值：none
+**************************************************/
 LogQueue::~LogQueue()
 {
     pthread_mutex_destroy(&client_store_mutex);

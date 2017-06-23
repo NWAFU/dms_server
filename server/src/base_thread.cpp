@@ -1,6 +1,7 @@
 #include <iostream>
-#include "header/base_thread.h"
 #include <pthread.h>
+
+#include "header/base_thread.h"
 #include "header/thread_exception.h"
 
 using std::cout;
@@ -18,8 +19,8 @@ BaseThread::~BaseThread()
 *函数名：task
 *功能：used to call run method
 *输入参数：arg
-*输出参数：void
-*返回值：void
+*输出参数：none
+*返回值：none
 **************************************************/
 void* BaseThread::task(void *arg)
 {
@@ -32,9 +33,9 @@ void* BaseThread::task(void *arg)
 *作者：Liu Chaoyang
 *函数名：start
 *功能：used to create thread and start it
-*输入参数：void
-*输出参数：void
-*返回值：void
+*输入参数：none
+*输出参数：none
+*返回值：none
 **************************************************/
 void BaseThread::start()
 {
