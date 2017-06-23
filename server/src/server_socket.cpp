@@ -40,7 +40,7 @@ ServerSocket::ServerSocket()
     }
     else
     {
-        cout << "Socket creation succeeded." << endl;
+        cout << "ok:Socket creation succeeded." << endl;
     }
     strcpy(server_ip, IP_ADDR);
     server_port = PORT;
@@ -58,7 +58,7 @@ ServerSocket::ServerSocket(short server_port, char *server_ip)
     }
     else
     {
-        cout << "Socket creation succeeded." << endl;
+        cout << "ok:Socket creation succeeded." << endl;
     }
     strcpy(this->server_ip, server_ip);
     this->server_port = server_port;
@@ -111,7 +111,7 @@ void ServerSocket::acceptClient()
     }
     else
     {
-        cout << "Socket bind succeeded." << endl;
+        cout << "ok:Socket bind succeeded." << endl;
     }
     // listen socket
     listen(socket_fd, 100);
@@ -132,7 +132,7 @@ void ServerSocket::acceptClient()
         }
         else
         {
-            cout << "Connection succeeded." << endl;
+            cout << "ok:Connection succeeded." << endl;
             // start a new client thread to deal with the client connecting
             try
             {

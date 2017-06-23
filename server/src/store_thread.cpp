@@ -47,7 +47,7 @@ void StoreThread::run()
         // insert data received into file
         log_dao.insert(mlg);
 #ifdef __DEBUG__
-        cout << "DataBase writing succeeded" << endl;
+        cout << "ok:DataBase writing succeeded" << endl;
 #endif
     }
 }
