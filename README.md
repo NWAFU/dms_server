@@ -33,26 +33,40 @@ DMS3.0系统主要实现以下核心功能：数据读取，数据匹配，数�
 ## 开发环境
 
 IDE: Qt Creator 3.0.1
+
 编译器: GCC 4.8.2, 64bit
+
 操作系统：Ubuntu 14.04 LTS
+
 数据库：oracle10g
 
 或者
 
 IDE: Qt Creator 1.3.1
+
 编译器: gcc (Ubuntu 4.4.3-4ubuntu5.1) 4.4.3
+
 操作系统：Ubuntu 10.04 LTS
+
 数据库：oracle10g
 
 ## .pc文件的编译
 
-使用下面的命令编译生成cpp文件即可：
+首先进入项目的工程目录下：
+
+```
+cd dms_server/server/
+```
+
+然后，使用下面的命令编译生成cpp文件即可：
 
 ```
 proc proc/oracle_dao.pc header/oracle_dao.h oname=src/oracle_dao.cpp parse=none code=cpp
 ```
 
 # 运行
+
+可以使用脚本运行服务器，也可以直接执行生成的可执行代码。在运行服务器之前，必须先初始化数据库，完成服务器所需表、触发器等的创建。
 
 ## 数据库创建表格
 
@@ -61,3 +75,46 @@ proc proc/oracle_dao.pc header/oracle_dao.h oname=src/oracle_dao.cpp parse=none 
 ```
 create table matched_record(log_id VARCHAR2(32) Primary key, log_name VARCHAR2(32), pid number, login_time number, logout_time number, duration number, log_ip VARCHAR2(32));
 ```
+
+## 使用脚本运行服务器
+
+使用脚本可以很方便地运行服务器。下面是运行选项：
+
+```
+      -l or --local     run server locally just for test
+      -p or --port      specify port for server
+      -h or --help      display help info
+```
+
+### 本地模式运行
+
+如果你只想在本地测试服务器的话，可以使用`-l`选项，这样的话服务器的ip默认为127.0.0.1，端口号从配置文件加载：
+
+```
+start.sh -l
+```
+
+### 指定端口号运行
+
+如果你想指定端口号的话，可以使用`-p`选项：
+
+```
+start.sh -p <your port>
+```
+
+### 显示帮助信息
+
+使用`-h`选项可以显示出该脚本的帮助信息：
+
+```
+start.sh -h
+```
+
+## 配置文件
+
+服务器默认会从配置文件加载配置信息，目前配置信息只有端口号。配置文件的格式如下：
+
+```
+port 4096
+```
+
