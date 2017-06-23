@@ -62,7 +62,7 @@ proc proc/oracle_dao.pc oname=src/oracle_dao.cpp parse=none code=cpp
 - 创建序列
 - 创建生成日志ID的触发器
 
-运行下列sql语句即可创建该程序所需要的表：
+运行下列sql语句即可初始化数据库：
 
 ```
 $ sqlplus
