@@ -49,15 +49,25 @@ IDE: Qt Creator 1.3.1
 使用下面的命令编译生成cpp文件即可：
 
 ```
-proc proc/oracle_dao.pc header/oracle_dao.h oname=src/oracle_dao.cpp parse=none code=cpp
+proc proc/oracle_dao.pc oname=src/oracle_dao.cpp parse=none code=cpp
 ```
 
 # 运行
 
-## 数据库创建表格
+## 初始化数据库
 
-运行下列sql语句即可创建该程序所需要的表：
+在服务器程序运行之前，需要对数据库进行初始化。初始化工作包括：
+
+- 创建表
+- 创建序列
+- 创建生成日志ID的触发器
+
+运行下列sql语句即可初始化数据库：
 
 ```
-create table matched_record(log_id VARCHAR2(32) Primary key, log_name VARCHAR2(32), pid number, login_time number, logout_time number, duration number, log_ip VARCHAR2(32));
+$ sqlplus
+...
+> @<path of sql file>/init_database.sql
 ```
+
+
