@@ -9,10 +9,9 @@
 #include "header/server_exception.h"
 
 #define __DEBUG__
-#ifdef __DEBUG__
-    #define DEFAULT_IP "127.0.0.1"
-    #define DEFAULT_PORT 4096
-#endif
+
+#define DEFAULT_IP "127.0.0.1"
+#define DEFAULT_PORT 4096
 
 using std::cout;
 using std::endl;

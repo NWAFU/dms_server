@@ -43,4 +43,5 @@ LIBS += \
      -lpthread
 
 OTHER_FILES += \
-    script/start.sh
+    script/start.sh \
+    config/config.cfg
