@@ -16,13 +16,11 @@ SOURCES += src/main.cpp \
     src/server.cpp \
     src/client_thread.cpp \
     src/base_thread.cpp \
-    src/oracle_dao.cpp  \
     src/save_exception.cpp \
     src/read_exception.cpp
 
 HEADERS += header/log_dao.h \
     header/file_dao.h \
-    header/oracle_dao.h \
     header/store_thread.h \
     header/server_socket.h \
     header/server.h \
@@ -41,10 +39,7 @@ PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
 LIBS += -L$$PTHREAD_LIB \
     -lpthread \
 
-LIBS += -lclntsh
-
 OTHER_FILES += \
     script/start.sh \
-    proc/oracle_dao.pc \
     config/config.cfg
 
