@@ -1,8 +1,12 @@
 #include "header/log_dao.h"
 #include "header/file_dao.h"
+#include "header/read_exception.h"
+#include "header/save_exception.h"
+
 #include <fstream>
 #include <iostream>
-using namespace std;
+using std::cout;
+using std::endl;
 
 #define __DEBUG__
 
@@ -39,15 +43,22 @@ void FileDao::insert(MatchedLogRec const& matched_log)
 #ifdef __DEBUG__
         cout<<"open file failed!"<<endl;
 #endif
-        return;
+        throw ReadException("Open file failed!");
     }
     else
     {
 #ifdef __DEBUG__
-        cout<<"open file succeeded."<<endl;
+        cout<<"Open file succeeded."<<endl;
 #endif
     }
     file << matched_log;
+    if (file.fail())
+    {
+#ifdef __DEBUG__
+        cout<<"Write file failed!"<<endl;
+#endif
+        throw SaveException("Write file failed!");
+    }
     file << "\n";
     file.close();
 }
