@@ -58,8 +58,8 @@ Server::~Server()
 
 void Server::dataMine()
 {
-    FileDao file_dao;
-    store_thread = new StoreThread(file_dao);
+    OracleDao oracle_dao;
+    store_thread = new StoreThread(oracle_dao);
     // start store thread
     store_thread->start();
     try

@@ -2,6 +2,8 @@
 #include"header/oracle_dao.h"
 #include<cstdlib>
 #include<cstring>
+#include"header/db_exception.h"
+#include<ctime>
 using namespace std;
 EXEC SQL BEGIN DECLARE SECTION;
 char user_passwd[20];
@@ -14,6 +16,16 @@ char ip[32];
 EXEC SQL END DECLARE SECTION;
 EXEC SQl include sqlca;
 
+/**************************************************
+*作者:sunwei
+*日期：2017.06.23
+*函数名：OracleDao
+*功能：构造函数（实现数据库的连接）
+*输入参数：none
+*输出参数：none
+*返回值：none
+**************************************************/
+
 OracleDao::OracleDao()
 {
 	EXEC SQL WHENEVER SQLERROR stop;
@@ -25,10 +37,19 @@ OracleDao::OracleDao()
 	}
 	else
 	{
-		printf("failed to connect database\n");
-                exit(0);
+                throw DBException("failed to connect database!\n");
         }
 }
+
+/**************************************************
+*作者:sunwei
+*日期：2017.06.23
+*函数名：insert
+*功能：将matched_log中的数据插入到数据库中
+*输入参数：matched_log(匹配好的日志记录)
+*输出参数：none
+*返回值：none
+**************************************************/
 
 void OracleDao::insert(MatchedLogRec const& matched_log)
 {
@@ -38,14 +59,28 @@ void OracleDao::insert(MatchedLogRec const& matched_log)
         logout_time = matched_log.logout_time;
         duration = matched_log.duration;
         strcpy(ip,matched_log.log_ip);
-        EXEC SQL insert into matched_record(log_name, pid, login_time, logout_time, duration, ip) values(:log_name, :pid, :login_time,
+        EXEC SQL insert into matched_record(log_name, pid, login_time, logout_time, duration, log_ip) values(:log_name, :pid, :login_time,
         :logout_time, :duration, :ip);
-        if(sqlca.sqlcode != 0)
-            printf("insert failed!\n");
+        if(0 == sqlca.sqlcode)
+        {
+                printf("Insert data succeeded!\n");
+        }
+        else
+        {
+                throw DBException("Insert data failed!");
+        }
         exec sql commit;
-
-
 }
+
+/**************************************************
+*作者:sunwei
+*日期：2017.06.23
+*函数名：～OracleDao
+*功能：析构函数（断开数据库的连接）
+*输入参数：none
+*输出参数：none
+*返回值：none
+**************************************************/
 
 OracleDao::~OracleDao()
 {

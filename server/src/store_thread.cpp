@@ -38,7 +38,7 @@ StoreThread::~StoreThread()
 
 void StoreThread::run()
 {
-    cout << "File Dao start..." << endl;
+    cout << "Oracle Dao start..." << endl;
     while (true)
     {
         MatchedLogRec mlg;
@@ -47,7 +47,7 @@ void StoreThread::run()
         // insert data received into file
         log_dao.insert(mlg);
 #ifdef __DEBUG__
-        cout << "File writing succeeded" << endl;
+        cout << "DataBase writing succeeded" << endl;
 #endif
     }
 }
