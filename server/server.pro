@@ -35,9 +35,8 @@ HEADERS += header/log_dao.h \
     header/save_exception.h \
     header/read_exception.h
     
-PTHREAD_LIB = /usr/lib/x86_64-linux-gnu
-LIBS += -L$$PTHREAD_LIB \
-    -lpthread \
+LIBS += -lclntsh \
+        -lpthread
 
 OTHER_FILES += \
     script/start.sh \
