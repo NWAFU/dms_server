@@ -60,16 +60,16 @@ static struct sqltdss sqltds =
 struct sqlcxp
 {
   unsigned short fillen;
-           char  filnam[14];
+           char  filnam[19];
 };
 static const struct sqlcxp sqlfpn =
 {
-    13,
-    "oracle_dao.pc"
+    18,
+    "proc/oracle_dao.pc"
 };
 
 
-static unsigned int sqlctx = 631011;
+static unsigned int sqlctx = 20562147;
 
 
 static struct sqlexd {
@@ -136,11 +136,11 @@ typedef struct { unsigned short len; unsigned char arr[1]; } varchar;
 /* cud (compilation unit data) array */
 static const short sqlcud0[] =
 {12,4130,1,0,0,
-5,0,0,1,0,0,27,21,0,0,4,4,0,1,0,1,97,0,0,1,10,0,0,1,10,0,0,1,10,0,0,
-36,0,0,2,109,0,3,41,0,0,6,6,0,1,0,1,97,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,
+5,0,0,1,0,0,27,23,0,0,4,4,0,1,0,1,97,0,0,1,10,0,0,1,10,0,0,1,10,0,0,
+36,0,0,2,113,0,3,42,0,0,6,6,0,1,0,1,97,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,
 97,0,0,
-75,0,0,3,0,0,29,45,0,0,0,0,0,1,0,
-90,0,0,4,0,0,30,52,0,0,0,0,0,1,0,
+75,0,0,3,0,0,29,52,0,0,0,0,0,1,0,
+90,0,0,4,0,0,30,57,0,0,0,0,0,1,0,
 };
 
 
@@ -148,6 +148,8 @@ static const short sqlcud0[] =
 #include"header/oracle_dao.h"
 #include<cstdlib>
 #include<cstring>
+#include"header/db_exception.h"
+#include<ctime>
 using namespace std;
 /* EXEC SQL BEGIN DECLARE SECTION; */ 
 
@@ -315,8 +317,7 @@ OracleDao::OracleDao()
 	}
 	else
 	{
-		printf("failed to connect database\n");
-                exit(0);
+                throw DBException("failed to connect database!\n");
         }
 }
 
@@ -328,7 +329,7 @@ void OracleDao::insert(MatchedLogRec const& matched_log)
         logout_time = matched_log.logout_time;
         duration = matched_log.duration;
         strcpy(ip,matched_log.log_ip);
-        /* EXEC SQL insert into matched_record(log_name, pid, login_time, logout_time, duration, ip) values(:log_name, :pid, :login_time,
+        /* EXEC SQL insert into matched_record(log_name, pid, login_time, logout_time, duration, log_ip) values(:log_name, :pid, :login_time,
         :logout_time, :duration, :ip); */ 
 
 {
@@ -338,7 +339,7 @@ void OracleDao::insert(MatchedLogRec const& matched_log)
         sqlstm.sqladtp = &sqladt;
         sqlstm.sqltdsp = &sqltds;
         sqlstm.stmt = "insert into matched_record (log_name,pid,login_time,l\
-ogout_time,duration,ip) values (:b0,:b1,:b2,:b3,:b4,:b5)";
+ogout_time,duration,log_ip) values (:b0,:b1,:b2,:b3,:b4,:b5)";
         sqlstm.iters = (unsigned int  )1;
         sqlstm.offset = (unsigned int  )36;
         sqlstm.cud = sqlcud0;
@@ -407,8 +408,14 @@ ogout_time,duration,ip) values (:b0,:b1,:b2,:b3,:b4,:b5)";
 }
 
 
-        if(sqlca.sqlcode != 0)
-            printf("insert failed!\n");
+        if(0 == sqlca.sqlcode)
+        {
+                printf("Insert data succeeded!\n");
+        }
+        else
+        {
+                throw DBException("Insert data failed!");
+        }
         /* exec sql commit; */ 
 
 {
@@ -426,8 +433,6 @@ ogout_time,duration,ip) values (:b0,:b1,:b2,:b3,:b4,:b5)";
         sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
         if (sqlca.sqlcode < 0) exit(1);
 }
-
-
 
 
 }
