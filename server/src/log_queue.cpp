@@ -1,7 +1,7 @@
 #include "header/log_queue.h"
 #include <iostream>
 #include "header/server_exception.h"
-#define __DEBUG__
+#define _DEBUG
 
 using std::list;
 using std::cout;
@@ -9,6 +9,7 @@ using std::endl;
 
 /**************************************************
 *作者：Liu Chaoyang
+*日期：2017.06.26
 *函数名：LogQueue constructor
 *功能：initial thread mutex and conditon variables
 *输入参数：none
@@ -22,49 +23,50 @@ LogQueue::LogQueue()
     res = pthread_mutex_init(&client_store_mutex, NULL);
     if (res != 0)
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout << "Thread mutex initialization failed!" << endl;
 #endif
         throw ServerException("Thread mutex initialization failed!");
     }
     else
     {
-#ifdef __DEBUG__
-        cout << "ok:Thread mutex initialization succeeded." << endl;
+#ifdef _DEBUG
+        cout << "OK:thread mutex initialization succeeded." << endl;
 #endif
     }
     res = pthread_cond_init(&not_full, NULL);
     if (res != 0)
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout << "Thread condition: 'not_full' initialization failed!" << endl;
 #endif
         throw ServerException("Thread condition: 'not_full' initialization failed!");
     }
     else
     {
-#ifdef __DEBUG__
-        cout << "ok:Thread condition: 'not_full' initialization succeeded." << endl;
+#ifdef _DEBUG
+        cout << "OK:Thread condition: 'not_full' initialization succeeded." << endl;
 #endif
     }
     res = pthread_cond_init(&not_empty, NULL);
     if (res != 0)
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout << "Thread condition: 'not_empty' initialization failed!" << endl;
 #endif
         throw ServerException("Thread condition: 'not_empty' initialization failed!");
     }
     else
     {
-#ifdef __DEBUG__
-        cout << "ok:Thread condition: 'not_empty' initialization succeeded." << endl;
+#ifdef _DEBUG
+        cout << "OK:Thread condition: 'not_empty' initialization succeeded." << endl;
 #endif
     }
 }
 
 /**************************************************
 *作者：Liu Chaoyang
+*日期：2017.06.26
 *函数名：operator <<
 *功能：insert data into log queue
 *输入参数：matched_log
@@ -76,8 +78,8 @@ LogQueue& LogQueue::operator <<(MatchedLogRec const& matched_log)
     pthread_mutex_lock(&client_store_mutex);
     if (log_record.size() == log_record.max_size())
     {
-#ifdef __DEBUG__
-        cout << "log Queue is full! Waiting for not-full ..." << endl;
+#ifdef _DEBUG
+        cout << "log Queue is full! Waiting for not-full..." << endl;
 #endif
         pthread_cond_wait(&not_full, &client_store_mutex);
     }
@@ -89,6 +91,7 @@ LogQueue& LogQueue::operator <<(MatchedLogRec const& matched_log)
 
 /**************************************************
 *作者：Liu Chaoyang
+*日期：2017.06.26
 *函数名：operator >>
 *功能：insert data into log queue
 *输入参数：matched_log
@@ -100,8 +103,8 @@ LogQueue& LogQueue::operator >>(MatchedLogRec& matched_log)
     pthread_mutex_lock(&client_store_mutex);
     if (log_record.size() == 0)
     {
-#ifdef __DEBUG__
-        cout << "log Queue is empty! Waiting for not-empty ..." << endl;
+#ifdef _DEBUG
+        cout << "log Queue is empty! Waiting for not-empty..." << endl;
 #endif
         pthread_cond_wait(&not_empty, &client_store_mutex);
     }
@@ -115,6 +118,7 @@ LogQueue& LogQueue::operator >>(MatchedLogRec& matched_log)
 
 /**************************************************
 *作者：Liu Chaoyang
+*日期：2017.06.26
 *函数名：LogQueue destructor
 *功能：destroy thread mutex and conditon variables
 *输入参数：none

@@ -23,5 +23,5 @@ public:
     LogQueue& operator >>(MatchedLogRec& matched_log);
 };
 
-extern LogQueue log_queue;
+extern LogQueue g_log_queue;
 #endif // LOG_QUEUE_H
