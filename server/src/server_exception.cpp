@@ -23,7 +23,7 @@ ServerException::ServerException()
 **************************************************/
 ServerException::ServerException(const string& msg)
 {
-    this->msg = "ServerException————";
+    this->msg = "ServerException----";
     this->msg += msg;
     this->msg +="!";
 }
