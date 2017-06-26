@@ -9,7 +9,7 @@
 #include <header/data.h>
 #include "header/server_exception.h"
 
-#define __DEBUG__
+#define _DEBUG
 
 using std::cout;
 using std::endl;
@@ -27,6 +27,7 @@ ClientThread::~ClientThread()
 
 /**************************************************
 *作者：Liu Chaoyang
+*日期：2017.06.26
 *函数名：run
 *功能：receive message from clients
 *输入参数：none
@@ -36,10 +37,10 @@ ClientThread::~ClientThread()
 
 void ClientThread::run()
 {
-    printf("start running\n");
+    cout << "Client thread starts running..." << endl;
     int rlen;
     MatchedLogRec buf;
-#ifdef __DEBUG__
+#ifdef _DEBUG
     int rcv_count = 0;      // count the number of received logs
 #endif
     while (true)
@@ -47,26 +48,28 @@ void ClientThread::run()
         rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
         {
-            cout << "Receive error!" << endl;
-            throw ServerException("Receive error!");
+#ifdef _DEBUG
+            cout << "Receiving data failed!" << endl;
+#endif
+            throw ServerException("Receiving data failed!");
         }
         else if (rlen == 0)
         {
-            cout << "Finish receiving!" << endl;
-#ifdef __DEBUG__
+            cout << "OK:data receiving finished." << endl;
+#ifdef _DEBUG
             cout << "Received: " << rcv_count << endl;
 #endif
             delete this;
         }
         else
         {
-#ifdef __DEBUG__
+#ifdef _DEBUG
             rcv_count++;           
             // print data received to console(just for test)
             cout << buf << endl;
 #endif
             // insert data received into log queue
-            log_queue << buf;
+            g_log_queue << buf;
         }
     }
 }

@@ -28,8 +28,8 @@
 using std::cout;
 using std::endl;
 
-// define global variable 'log_queue'
-LogQueue log_queue = LogQueue();
+// define global variable 'g_log_queue'
+LogQueue g_log_queue = LogQueue();
 
 int main(int argc, char *argv[])
 {
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     // start working
     server->dataMine();
 
-    cout << "Server halt ..." << endl;
+    cout << "Server halt..." << endl;
     // terminate server
     delete server;
     return 0;

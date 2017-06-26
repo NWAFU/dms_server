@@ -8,7 +8,7 @@
 #include "header/oracle_dao.h"
 #include "header/server_exception.h"
 
-#define __DEBUG__
+#define _DEBUG
 
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT 4096
@@ -29,7 +29,7 @@ Server::Server()
 {
     char server_ip[32] = DEFAULT_IP;
     short server_port = DEFAULT_PORT;
-#ifdef __DEBUG__
+#ifdef _DEBUG
     cout << "IP address of server is: " << server_ip << endl;
     cout << "Port of server is: " << server_port << endl;
 #endif
@@ -54,7 +54,7 @@ Server::Server()
 **************************************************/
 Server::Server(char *server_ip, short server_port)
 {
-#ifdef __DEBUG__
+#ifdef _DEBUG
     cout << "IP address of server is: " << server_ip << endl;
     cout << "Port of server is: " << server_port << endl;
 #endif

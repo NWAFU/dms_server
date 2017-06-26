@@ -15,7 +15,7 @@
 using std::cout;
 using std::endl;
 
-#define __DEBUG__
+#define _DEBUG
 #define IP_ADDR "172.29.23.167"
 #define PORT 4096
 
@@ -33,14 +33,14 @@ ServerSocket::ServerSocket()
     int ret = socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (ret < 0)
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout << "Socket creation failed!" << endl;
 #endif
         throw SocketException("Socket creation failed!");
     }
     else
     {
-        cout << "ok:Socket creation succeeded." << endl;
+        cout << "OK:socket creation succeeded." << endl;
     }
     strcpy(server_ip, IP_ADDR);
     server_port = PORT;
@@ -51,14 +51,14 @@ ServerSocket::ServerSocket(short server_port, char *server_ip)
     int ret = socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (ret < 0)
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout << "Socket creation failed!" << endl;
 #endif
         throw SocketException("Socket creation failed!");
     }
     else
     {
-        cout << "ok:Socket creation succeeded." << endl;
+        cout << "OK:Socket creation succeeded." << endl;
     }
     strcpy(this->server_ip, server_ip);
     this->server_port = server_port;
@@ -104,14 +104,14 @@ void ServerSocket::acceptClient()
 
     if (ret < 0)
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout << "Socket bind failed!" << endl;
 #endif
         throw SocketException("Socket bind failed!");
     }
     else
     {
-        cout << "ok:Socket bind succeeded." << endl;
+        cout << "OK:socket bind succeeded." << endl;
     }
     // listen socket
     listen(socket_fd, 100);
@@ -121,18 +121,18 @@ void ServerSocket::acceptClient()
     {
         struct sockaddr_in client_address;
         int client_len = sizeof(client_address);
-        cout << "Waiting for connections ..." << endl;
+        cout << "Waiting for connections..." << endl;
         client_sockfd = accept(socket_fd, (struct sockaddr *)&client_address, (socklen_t *)&client_len);
         if (client_sockfd < 0)
         {
-#ifdef __DEBUG__
+#ifdef _DEBUG
             cout << "Connection error!" << endl;
 #endif
             throw SocketException("Connection error!");
         }
         else
-        {
-            cout << "ok:Connection succeeded." << endl;
+        {            
+            cout << "Connected to a new client." << endl;
             // start a new client thread to deal with the client connecting
             try
             {
