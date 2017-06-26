@@ -1,10 +1,10 @@
-#include "header/log_dao.h"
 #include "header/file_dao.h"
 #include <fstream>
-#include <iostream>
-using namespace std;
 
-#define __DEBUG__
+using std::cout;
+using std::endl;
+
+#define _DEBUG
 
 /**************************************************
 *作者:sunwei
@@ -36,19 +36,19 @@ void FileDao::insert(MatchedLogRec const& matched_log)
     ofstream file(filename, ofstream::out|ofstream::ate|ofstream::app);
     if (!file.is_open())
     {
-#ifdef __DEBUG__
-        cout<<"open file failed!"<<endl;
+#ifdef _DEBUG
+        cout<<"Open file failed!"<<endl;
 #endif
         return;
     }
     else
     {
-#ifdef __DEBUG__
-        cout<<"open file succeeded."<<endl;
+#ifdef _DEBUG
+        cout<<"OK:open file succeeded."<<endl;
 #endif
     }
     file << matched_log;
-    file << "\n";
+    file << endl;
     file.close();
 }
 
@@ -62,4 +62,6 @@ void FileDao::insert(MatchedLogRec const& matched_log)
 *返回值：none
 **************************************************/
 
-FileDao::~FileDao(){}
+FileDao::~FileDao()
+{
+}
