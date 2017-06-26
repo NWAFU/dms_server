@@ -42,4 +42,8 @@ CMakeLists.txt.user*
 
 # Temp Files
 *~
+
+# Oracle 
+*.lis
+*tp*
 # End of https://www.gitignore.io/api/qt

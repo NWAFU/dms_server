@@ -11,8 +11,8 @@ using std::endl;
 *函数名：StoreThread
 *功能：Constructor of StoreThread
 *输入参数：log_dao
-*输出参数：void
-*返回值：void
+*输出参数：none
+*返回值：none
 **************************************************/
 
 StoreThread::StoreThread(LogDao &log_dao)
@@ -26,9 +26,9 @@ StoreThread::StoreThread(LogDao &log_dao)
 *日期：2017.06.12
 *函数名：~StoreThread
 *功能：Destructor of StoreThread
-*输入参数：void
-*输出参数：void
-*返回值：void
+*输入参数：none
+*输出参数：none
+*返回值：none
 **************************************************/
 
 StoreThread::~StoreThread()
@@ -38,7 +38,7 @@ StoreThread::~StoreThread()
 
 void StoreThread::run()
 {
-    cout << "File Dao start..." << endl;
+    cout << "Oracle Dao start..." << endl;
     while (true)
     {
         MatchedLogRec mlg;
@@ -47,7 +47,7 @@ void StoreThread::run()
         // insert data received into file
         log_dao.insert(mlg);
 #ifdef __DEBUG__
-        cout << "File writing succeeded" << endl;
+        cout << "ok:DataBase writing succeeded" << endl;
 #endif
     }
 }

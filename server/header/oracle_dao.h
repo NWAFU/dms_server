@@ -5,6 +5,8 @@
 class OracleDao:public LogDao
 {
 public:
+    OracleDao();
+    ~OracleDao();
     void insert(MatchedLogRec const& matched_log);
 };
 

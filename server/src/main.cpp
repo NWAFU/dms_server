@@ -21,10 +21,12 @@
  ************************************************************************/
 #include <iostream>
 #include <cstdlib>
+
 #include "header/log_queue.h"
 #include "header/server.h"
 
-using namespace std;
+using std::cout;
+using std::endl;
 
 // define global variable 'log_queue'
 LogQueue log_queue = LogQueue();

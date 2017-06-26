@@ -29,9 +29,9 @@ ClientThread::~ClientThread()
 *作者：Liu Chaoyang
 *函数名：run
 *功能：receive message from clients
-*输入参数：void
-*输出参数：void
-*返回值：void
+*输入参数：none
+*输出参数：none
+*返回值：none
 **************************************************/
 
 void ClientThread::run()
