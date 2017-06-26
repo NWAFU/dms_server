@@ -9,7 +9,7 @@
 *输出参数：none
 *返回值：none
 **************************************************/
-DBException::DBException()  :ServerException("DatebaseException)
+DBException::DBException()  :ServerException("DatebaseException")
 {
 
 }
