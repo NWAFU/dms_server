@@ -33,7 +33,7 @@ LogQueue g_log_queue = LogQueue();
 
 int main(int argc, char *argv[])
 {
-    Server *server;
+    Server *server = NULL;
     if (argc == 1)
     {
         // use default ip and port
@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
     cout << "Server halt..." << endl;
     // terminate server
     delete server;
+    server = NULL;
     return 0;
 }
 

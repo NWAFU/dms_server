@@ -27,6 +27,9 @@ using std::endl;
 **************************************************/
 Server::Server()
 {
+    // initial store_thread and server_socket
+    store_thread = NULL;
+    server_socket = NULL;
     char server_ip[32] = DEFAULT_IP;
     short server_port = DEFAULT_PORT;
 #ifdef _DEBUG
@@ -54,6 +57,9 @@ Server::Server()
 **************************************************/
 Server::Server(char *server_ip, short server_port)
 {
+    // initial store_thread and server_socket
+    store_thread = NULL;
+    server_socket = NULL;
 #ifdef _DEBUG
     cout << "IP address of server is: " << server_ip << endl;
     cout << "Port of server is: " << server_port << endl;
@@ -80,7 +86,9 @@ Server::Server(char *server_ip, short server_port)
 Server::~Server()
 {
     delete store_thread;
+    store_thread = NULL;
     delete server_socket;
+    server_socket = NULL;
 }
 
 /**************************************************
