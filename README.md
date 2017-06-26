@@ -32,8 +32,6 @@ IDE: Qt Creator 3.0.1
 
 操作系统：Ubuntu 14.04 LTS
 
-数据库：oracle10g
-
 或者
 
 IDE: Qt Creator 1.3.1
@@ -41,22 +39,6 @@ IDE: Qt Creator 1.3.1
 编译器: gcc (Ubuntu 4.4.3-4ubuntu5.1) 4.4.3
 
 操作系统：Ubuntu 10.04 LTS
-
-数据库：oracle10g
-
-## .pc文件的编译
-
-首先进入项目的工程目录下：
-
-```
-cd dms_server/server/
-```
-
-然后，使用下面的命令编译生成cpp文件即可：
-
-```
-proc proc/oracle_dao.pc header/oracle_dao.h oname=src/oracle_dao.cpp parse=none code=cpp
-```
 
 # 运行
 
