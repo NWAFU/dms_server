@@ -136,11 +136,11 @@ typedef struct { unsigned short len; unsigned char arr[1]; } varchar;
 /* cud (compilation unit data) array */
 static const short sqlcud0[] =
 {12,4130,1,0,0,
-5,0,0,1,0,0,27,23,0,0,4,4,0,1,0,1,97,0,0,1,10,0,0,1,10,0,0,1,10,0,0,
-36,0,0,2,113,0,3,42,0,0,6,6,0,1,0,1,97,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,
+5,0,0,1,0,0,27,34,0,0,4,4,0,1,0,1,97,0,0,1,10,0,0,1,10,0,0,1,10,0,0,
+36,0,0,2,113,0,3,63,0,0,6,6,0,1,0,1,97,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,3,0,0,1,
 97,0,0,
-75,0,0,3,0,0,29,52,0,0,0,0,0,1,0,
-90,0,0,4,0,0,30,57,0,0,0,0,0,1,0,
+75,0,0,3,0,0,29,73,0,0,0,0,0,1,0,
+90,0,0,4,0,0,30,88,0,0,0,0,0,1,0,
 };
 
 
@@ -150,7 +150,8 @@ static const short sqlcud0[] =
 #include<cstring>
 #include"header/db_exception.h"
 #include<ctime>
-using namespace std;
+using std::cout;
+using std::endl;
 /* EXEC SQL BEGIN DECLARE SECTION; */ 
 
 char user_passwd[20];
@@ -265,6 +266,16 @@ SQLCA_STORAGE_CLASS struct sqlca sqlca
 /* end SQLCA */
 
 
+/**************************************************
+*作者:sunwei
+*日期：2017.06.23
+*函数名：OracleDao
+*功能：构造函数（实现数据库的连接）
+*输入参数：none
+*输出参数：none
+*返回值：none
+**************************************************/
+
 OracleDao::OracleDao()
 {
 	/* EXEC SQL WHENEVER SQLERROR stop; */ 
@@ -313,13 +324,23 @@ OracleDao::OracleDao()
 
 	if(0 == sqlca.sqlcode)
 	{
-		printf("success to connect database\n");
+                cout <<"OK:connect database succeeded."<< endl;
 	}
 	else
 	{
-                throw DBException("failed to connect database!\n");
+                throw DBException("Connect database failed!\n");
         }
 }
+
+/**************************************************
+*作者:sunwei
+*日期：2017.06.23
+*函数名：insert
+*功能：将matched_log中的数据插入到数据库中
+*输入参数：matched_log(匹配好的日志记录)
+*输出参数：none
+*返回值：none
+**************************************************/
 
 void OracleDao::insert(MatchedLogRec const& matched_log)
 {
@@ -410,13 +431,13 @@ ogout_time,duration,log_ip) values (:b0,:b1,:b2,:b3,:b4,:b5)";
 
         if(0 == sqlca.sqlcode)
         {
-                printf("Insert data succeeded!\n");
+                cout <<"OK:insert data succeeded."<< endl;
         }
         else
         {
-                throw DBException("Insert data failed!");
+                throw DBException("Insert data failed!\n");
         }
-        /* exec sql commit; */ 
+        /* EXEC SQL COMMIT; */ 
 
 {
         struct sqlexd sqlstm;
@@ -437,9 +458,19 @@ ogout_time,duration,log_ip) values (:b0,:b1,:b2,:b3,:b4,:b5)";
 
 }
 
+/**************************************************
+*作者:sunwei
+*日期：2017.06.23
+*函数名：～OracleDao
+*功能：析构函数（断开数据库的连接）
+*输入参数：none
+*输出参数：none
+*返回值：none
+**************************************************/
+
 OracleDao::~OracleDao()
 {
-        /* exec sql commit work release; */ 
+        /* EXEC SQL COMMIT WORK RELEASE; */ 
 
 {
         struct sqlexd sqlstm;
