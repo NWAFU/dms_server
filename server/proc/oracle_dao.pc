@@ -4,7 +4,8 @@
 #include<cstring>
 #include"header/db_exception.h"
 #include<ctime>
-using namespace std;
+using std::cout;
+using std::endl;
 EXEC SQL BEGIN DECLARE SECTION;
 char user_passwd[20];
 char log_name[32];
@@ -33,11 +34,11 @@ OracleDao::OracleDao()
 	EXEC SQL CONNECT:user_passwd;
 	if(0 == sqlca.sqlcode)
 	{
-		printf("success to connect database\n");
+                cout <<"OK:connect database succeeded."<< endl;
 	}
 	else
 	{
-                throw DBException("failed to connect database!\n");
+                throw DBException("Connect database failed!\n");
         }
 }
 
@@ -63,13 +64,13 @@ void OracleDao::insert(MatchedLogRec const& matched_log)
         :logout_time, :duration, :ip);
         if(0 == sqlca.sqlcode)
         {
-                printf("Insert data succeeded!\n");
+                cout <<"OK:insert data succeeded."<< endl;
         }
         else
         {
-                throw DBException("Insert data failed!");
+                throw DBException("Insert data failed!\n");
         }
-        exec sql commit;
+        EXEC SQL COMMIT;
 }
 
 /**************************************************
@@ -84,5 +85,5 @@ void OracleDao::insert(MatchedLogRec const& matched_log)
 
 OracleDao::~OracleDao()
 {
-        exec sql commit work release;
+        EXEC SQL COMMIT WORK RELEASE;
 }
