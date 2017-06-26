@@ -2,18 +2,20 @@
 
 /**************************************************
 *作者：马骏
+*日期：2017.6.26
 *函数名：DBException()
 *功能：数据库异常类默认构造函数
 *输入参数：none
 *输出参数：none
 *返回值：none
 **************************************************/
-DBException::DBException()  :ServerException("数据库异常")
+DBException::DBException()  :ServerException("DatebaseException)
 {
 
 }
 /**************************************************
 *作者：马骏
+*日期：2017.6.26
 *函数名：DBException(const string& msg)
 *功能：数据库异常类帯参数构造函数
 *输入参数：msg

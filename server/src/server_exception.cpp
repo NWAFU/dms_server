@@ -1,6 +1,7 @@
 #include"header/server_exception.h"
 /**************************************************
 *作者：马骏
+*日期：2017.6.26
 *函数名：ServerException
 *功能：服务器异常类默认构造函数
 *输入参数：none
@@ -9,10 +10,11 @@
 **************************************************/
 ServerException::ServerException()
 {
-    this->msg ="服务器异常";
+    this->msg ="ServerException";
 }
 /**************************************************
 *作者：马骏
+*日期：2017.6.26
 *函数名：ServerException(string& msg)
 *功能：服务器异常类帯参数构造函数
 *输入参数：msg
@@ -21,7 +23,7 @@ ServerException::ServerException()
 **************************************************/
 ServerException::ServerException(const string& msg)
 {
-    this->msg = "服务器异常————";
+    this->msg = "ServerException————";
     this->msg += msg;
     this->msg +="!";
 }
@@ -33,6 +35,7 @@ ServerException::~ServerException() throw()
 }
 /**************************************************
 *作者：马骏
+*日期：2017.6.26
 *函数名：const char*what()
 *功能：返回服务器异常类错误字符串
 *输入参数：none
