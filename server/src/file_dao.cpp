@@ -8,7 +8,7 @@
 using std::cout;
 using std::endl;
 
-#define __DEBUG__
+#define _DEBUG
 
 /**************************************************
 *作者:sunwei
@@ -40,21 +40,21 @@ void FileDao::insert(MatchedLogRec const& matched_log)
     ofstream file(filename, ofstream::out|ofstream::ate|ofstream::app);
     if (!file.is_open())
     {
-#ifdef __DEBUG__
-        cout<<"open file failed!"<<endl;
+#ifdef _DEBUG
+        cout<<"Open file failed!"<<endl;
 #endif
         throw ReadException("Open file failed!");
     }
     else
     {
-#ifdef __DEBUG__
-        cout<<"Open file succeeded."<<endl;
+#ifdef _DEBUG
+        cout<<"OK:pen file succeeded."<<endl;
 #endif
     }
     file << matched_log;
     if (file.fail())
     {
-#ifdef __DEBUG__
+#ifdef _DEBUG
         cout<<"Write file failed!"<<endl;
 #endif
         throw SaveException("Write file failed!");

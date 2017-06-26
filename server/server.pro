@@ -35,7 +35,7 @@ HEADERS += header/log_dao.h \
     header/save_exception.h \
     header/read_exception.h
     
-LIBS += -lclntsh \
+LIBS += \
         -lpthread
 
 OTHER_FILES += \
