@@ -9,7 +9,7 @@
 #include <header/data.h>
 #include "header/server_exception.h"
 
-#define _DEBUG
+//#define _DEBUG
 
 using std::cout;
 using std::endl;
@@ -37,12 +37,10 @@ ClientThread::~ClientThread()
 
 void ClientThread::run()
 {
-    cout << "Client thread starts running..." << endl;
     int rlen;
     MatchedLogRec buf;
-#ifdef _DEBUG
     int rcv_count = 0;      // count the number of received logs
-#endif
+
     while (true)
     {
         rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
@@ -54,11 +52,9 @@ void ClientThread::run()
             throw ServerException("Receiving data failed!");
         }
         else if (rlen == 0)
-        {
-            cout << "OK:data receiving finished." << endl;
-#ifdef _DEBUG
+        {           
+            //cout << "Disconnected to this client." << endl;
             cout << "Received: " << rcv_count << endl;
-#endif
             delete this;
         }
         else

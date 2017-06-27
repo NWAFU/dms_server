@@ -1,7 +1,7 @@
 #include "header/log_queue.h"
 #include <iostream>
 #include "header/server_exception.h"
-#define _DEBUG
+//#define _DEBUG
 
 using std::list;
 using std::cout;
