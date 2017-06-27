@@ -15,7 +15,7 @@
 using std::cout;
 using std::endl;
 
-#define _DEBUG
+//#define _DEBUG
 #define IP_ADDR "172.29.23.167"
 #define PORT 4096
 
@@ -58,7 +58,9 @@ ServerSocket::ServerSocket(short server_port, char *server_ip)
     }
     else
     {
+#ifdef _DEBUG
         cout << "OK:Socket creation succeeded." << endl;
+#endif
     }
     strcpy(this->server_ip, server_ip);
     this->server_port = server_port;
@@ -111,8 +113,12 @@ void ServerSocket::acceptClient()
     }
     else
     {
+#ifdef _DEBUG
         cout << "OK:socket bind succeeded." << endl;
+#endif
     }
+
+
     // listen socket
     listen(socket_fd, 100);
 
@@ -132,12 +138,14 @@ void ServerSocket::acceptClient()
         }
         else
         {            
-            cout << "Connected to a new client." << endl;
+            //cout << "Connected to a new client." << endl;
             // start a new client thread to deal with the client connecting
             try
             {
+                cout << "Starting a new client thread..." << endl;
                 ClientThread *client_thread = new ClientThread(client_sockfd);
                 client_thread->start();
+                cout << "OK:a new client thread has started." << endl;
             }
             catch(ThreadException te)
             {

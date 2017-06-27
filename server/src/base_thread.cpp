@@ -7,7 +7,7 @@
 using std::cout;
 using std::endl;
 
-#define _DEBUG
+//#define _DEBUG
 
 BaseThread::~BaseThread()
 {

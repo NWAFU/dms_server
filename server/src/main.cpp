@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
         short port = atoi(argv[2]);
         server = new Server(argv[1], port);
     }
-    // start working
+    // start working 
     server->dataMine();
 
     cout << "Server halt..." << endl;

@@ -8,7 +8,7 @@
 #include "header/oracle_dao.h"
 #include "header/server_exception.h"
 
-#define _DEBUG
+//#define _DEBUG
 
 #define DEFAULT_IP "127.0.0.1"
 #define DEFAULT_PORT 4096
@@ -36,6 +36,7 @@ Server::Server()
     cout << "IP address of server is: " << server_ip << endl;
     cout << "Port of server is: " << server_port << endl;
 #endif
+    cout << "Starting server..." << endl;
     try
     {
         server_socket = new ServerSocket(server_port, server_ip);
@@ -104,9 +105,12 @@ Server::~Server()
 void Server::dataMine()
 {
     OracleDao oracle_dao;
+    cout << "Starting Oracle Dao thread..." << endl;
     store_thread = new StoreThread(oracle_dao);
+
     // start store thread
     store_thread->start();
+    cout << "OK:file dao thread has started." << endl;
     try
     {
         // start to accept data from clients
