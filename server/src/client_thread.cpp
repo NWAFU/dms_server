@@ -59,8 +59,8 @@ void ClientThread::run()
         }
         else
         {
-#ifdef _DEBUG
-            rcv_count++;           
+            rcv_count++;
+#ifdef _DEBUG          
             // print data received to console(just for test)
             cout << buf << endl;
 #endif
