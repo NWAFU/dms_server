@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cstring>
 #include <header/data.h>
+#include <cstdlib>
 #include "header/server_exception.h"
 
 //#define _DEBUG
@@ -41,16 +42,13 @@ void ClientThread::run()
     int rlen;
     MatchedLogRec buf;
     int rcv_count = 0;      // count the number of received logs
-    int buf_cur_num = 0;
+
 #ifdef _DEBUG
     int error_num=0;
 #endif
+
     while (true)
     {
-        if (buf_cur_num==sizeof(MatchedLogRec))
-        {
-            buf_cur_num=0;
-        }
         rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
         {
@@ -68,30 +66,57 @@ void ClientThread::run()
 #endif
             delete this;
         }
-        else
+        else if (rlen == 80)
         {
+            rcv_count++;
 #ifdef _DEBUG
-            if (rlen < sizeof(MatchedLogRec))
-            {
-                error_num++;
-            }
+            // print data received to console(just for test)
+            //cout << buf << endl;
+#endif
+            // insert data received into log queue
+            g_log_queue << buf;
+        }
+        else if (rlen < sizeof(MatchedLogRec))
+        {
+            int buf_cur_num = 0;
+#ifdef _DEBUG
+            //cout << "Oops!" << endl;
+            error_num++;
 #endif
 
             while (true)
             {
                 buf_cur_num += rlen;
-                rlen = recv(conn_fd, (MatchedLogRec*)&buf + buf_cur_num,
-                            sizeof(MatchedLogRec) - buf_cur_num, 0);
                 if (buf_cur_num == 80)
                 {
                     break;
+                }
+                //cout << "Before Receive: " << sizeof(MatchedLogRec) - buf_cur_num << endl;
+                rlen = recv(conn_fd, (MatchedLogRec*)&buf + buf_cur_num,
+                            sizeof(MatchedLogRec) - buf_cur_num, 0);
+                //cout << "After Receive: " << rlen << endl;
+                try
+                {
+                    if (rlen == 0)
+                    {
+                        break;
+                    }
+                    else if (rlen < 0)
+                    {
+                        throw ServerException("Receiving data failed!");
+                    }
+                }
+                catch (ServerException s)
+                {
+                    cout << s.what() << endl;
+                    exit(-1);
                 }
             }
 
             rcv_count++;
 #ifdef _DEBUG          
             // print data received to console(just for test)
-            cout << buf << endl;
+            //cout << buf << endl;
 #endif
             // insert data received into log queue
             g_log_queue << buf;

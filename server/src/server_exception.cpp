@@ -9,7 +9,7 @@
 **************************************************/
 ServerException::ServerException()
 {
-    this->msg ="服务器异常";
+    this->msg ="ServerException";
 }
 /**************************************************
 *作者：马骏
@@ -21,7 +21,7 @@ ServerException::ServerException()
 **************************************************/
 ServerException::ServerException(const string& msg)
 {
-    this->msg = "服务器异常————";
+    this->msg = "ServerException----";
     this->msg += msg;
     this->msg +="!";
 }
