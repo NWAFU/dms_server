@@ -110,7 +110,7 @@ void Server::dataMine()
 
     // start store thread
     store_thread->start();
-    cout << "OK:file dao thread has started." << endl;
+    cout << "OK:oracle dao thread has started." << endl;
     try
     {
         // start to accept data from clients

@@ -17,6 +17,8 @@ char ip[32];
 EXEC SQL END DECLARE SECTION;
 EXEC SQl include sqlca;
 
+//#define _DEBUG
+
 /**************************************************
 *作者:sunwei
 *日期：2017.06.23
@@ -64,7 +66,9 @@ void OracleDao::insert(MatchedLogRec const& matched_log)
         :logout_time, :duration, :ip);
         if(0 == sqlca.sqlcode)
         {
+#ifdef _DEBUG
                 cout <<"OK:insert data succeeded."<< endl;
+#endif
         }
         else
         {
