@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <header/log_queue.h>
 #include <iostream>
+#include <cstring>
 #include <header/data.h>
 #include "header/server_exception.h"
 
@@ -40,7 +41,7 @@ void ClientThread::run()
     int rlen;
     MatchedLogRec buf;
     int rcv_count = 0;      // count the number of received logs
-
+    char cache[sizeof(MatchedLogRec)];
     while (true)
     {
         rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
@@ -59,6 +60,16 @@ void ClientThread::run()
         }
         else
         {
+            if (sizeof(buf) < sizeof(MatchedLogRec))
+            {
+                strcat(cache, (char *)&buf);
+                rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
+                continue;
+            }
+            else
+            {
+                strcpy(cache, (char *)&buf);
+            }
             rcv_count++;
 #ifdef _DEBUG          
             // print data received to console(just for test)
