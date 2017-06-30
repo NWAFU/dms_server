@@ -8,7 +8,7 @@
 using std::cout;
 using std::endl;
 
-#define _DEBUG
+//#define _DEBUG
 
 /**************************************************
 *作者:sunwei

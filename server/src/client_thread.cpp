@@ -6,10 +6,11 @@
 #include <stdio.h>
 #include <header/log_queue.h>
 #include <iostream>
+#include <cstring>
 #include <header/data.h>
 #include "header/server_exception.h"
 
-#define _DEBUG
+//#define _DEBUG
 
 using std::cout;
 using std::endl;
@@ -37,14 +38,19 @@ ClientThread::~ClientThread()
 
 void ClientThread::run()
 {
-    cout << "Client thread starts running..." << endl;
     int rlen;
     MatchedLogRec buf;
-#ifdef _DEBUG
     int rcv_count = 0;      // count the number of received logs
+    int buf_cur_num = 0;
+#ifdef _DEBUG
+    int error_num=0;
 #endif
     while (true)
     {
+        if (buf_cur_num==sizeof(MatchedLogRec))
+        {
+            buf_cur_num=0;
+        }
         rlen = recv(conn_fd, (MatchedLogRec*)&buf, sizeof(MatchedLogRec), 0);
         if (rlen < 0)
         {
@@ -54,17 +60,36 @@ void ClientThread::run()
             throw ServerException("Receiving data failed!");
         }
         else if (rlen == 0)
-        {
-            cout << "OK:data receiving finished." << endl;
-#ifdef _DEBUG
+        {           
+            //cout << "Disconnected to this client." << endl;
             cout << "Received: " << rcv_count << endl;
+#ifdef _DEBUG
+            cout<<"Error number: "<<error_num<<endl;
 #endif
             delete this;
         }
         else
         {
 #ifdef _DEBUG
-            rcv_count++;           
+            if (rlen < sizeof(MatchedLogRec))
+            {
+                error_num++;
+            }
+#endif
+
+            while (true)
+            {
+                buf_cur_num += rlen;
+                rlen = recv(conn_fd, (MatchedLogRec*)&buf + buf_cur_num,
+                            sizeof(MatchedLogRec) - buf_cur_num, 0);
+                if (buf_cur_num == 80)
+                {
+                    break;
+                }
+            }
+
+            rcv_count++;
+#ifdef _DEBUG          
             // print data received to console(just for test)
             cout << buf << endl;
 #endif

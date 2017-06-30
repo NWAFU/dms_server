@@ -4,7 +4,7 @@
 using std::cout;
 using std::endl;
 
-#define _DEBUG
+//#define _DEBUG
 /**************************************************
 *作者：Liu Chaoyang
 *日期：2017.06.12
@@ -47,7 +47,6 @@ StoreThread::~StoreThread()
 **************************************************/
 void StoreThread::run()
 {
-    cout << "File Dao thread starts running..." << endl;
     while (true)
     {
         MatchedLogRec mlg;
